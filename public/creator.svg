@@ -1,0 +1,62 @@
+<svg width="400" height="500" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- PC Case Background - Creator Purple Theme -->
+  <rect x="50" y="30" width="300" height="440" fill="#1A1A1A" stroke="#B026FF" stroke-width="3"/>
+
+  <!-- Tempered Glass Panel -->
+  <rect x="60" y="50" width="280" height="380" fill="url(#glass-gradient-creator)" opacity="0.3"/>
+
+  <!-- GPU - Content Creation -->
+  <rect x="80" y="270" width="240" height="65" fill="#2A2A2A" stroke="#B026FF" stroke-width="2"/>
+  <text x="200" y="305" font-family="monospace" font-size="14" fill="#B026FF" text-anchor="middle">RTX 4080</text>
+
+  <!-- CPU Cooler - Workstation -->
+  <rect x="140" y="100" width="120" height="80" fill="#2A2A2A" stroke="#00FF88" stroke-width="2"/>
+  <text x="200" y="135" font-family="monospace" font-size="12" fill="#00FF88" text-anchor="middle">AMD</text>
+  <text x="200" y="155" font-family="monospace" font-size="12" fill="#00FF88" text-anchor="middle">7950X</text>
+
+  <!-- RAM Sticks - 128GB for Creators -->
+  <rect x="80" y="210" width="55" height="15" fill="#00FF88" opacity="0.8"/>
+  <rect x="140" y="210" width="55" height="15" fill="#00FF88" opacity="0.8"/>
+  <rect x="200" y="210" width="55" height="15" fill="#00FF88" opacity="0.8"/>
+  <rect x="260" y="210" width="55" height="15" fill="#00FF88" opacity="0.8"/>
+
+  <rect x="80" y="230" width="55" height="15" fill="#00FF88" opacity="0.6"/>
+  <rect x="140" y="230" width="55" height="15" fill="#00FF88" opacity="0.6"/>
+  <rect x="200" y="230" width="55" height="15" fill="#00FF88" opacity="0.6"/>
+  <rect x="260" y="230" width="55" height="15" fill="#00FF88" opacity="0.6"/>
+
+  <!-- Storage Indicators -->
+  <rect x="90" y="360" width="80" height="10" fill="#B026FF" opacity="0.5"/>
+  <rect x="180" y="360" width="80" height="10" fill="#B026FF" opacity="0.5"/>
+
+  <!-- Fans -->
+  <circle cx="120" cy="400" r="30" fill="none" stroke="#B026FF" stroke-width="2"/>
+  <circle cx="200" cy="400" r="30" fill="none" stroke="#00FF88" stroke-width="2"/>
+  <circle cx="280" cy="400" r="30" fill="none" stroke="#B026FF" stroke-width="2"/>
+
+  <!-- RGB Strips - Creator Theme -->
+  <rect x="60" y="440" width="280" height="5" fill="url(#rgb-gradient-creator)"/>
+
+  <!-- Creator Badge -->
+  <rect x="260" y="40" width="80" height="25" fill="#B026FF"/>
+  <text x="300" y="57" font-family="monospace" font-size="10" fill="#FFFFFF" text-anchor="middle">CREATOR</text>
+
+  <!-- Power Button -->
+  <circle cx="330" cy="60" r="8" fill="#00FF88" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="glass-gradient-creator" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B026FF;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#00FF88;stop-opacity:0.1" />
+    </linearGradient>
+    <linearGradient id="rgb-gradient-creator" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#B026FF" />
+      <stop offset="33%" style="stop-color:#00FF88" />
+      <stop offset="66%" style="stop-color:#00E5FF" />
+      <stop offset="100%" style="stop-color:#B026FF" />
+    </linearGradient>
+  </defs>
+</svg>

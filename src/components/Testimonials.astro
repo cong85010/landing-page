@@ -1,0 +1,49 @@
+---
+// Testimonials Component
+const testimonials = [
+  {
+    rating: 5,
+    text: "Build quality đỉnh cao, cable management hoàn hảo. Đây là chiếc PC đẹp nhất tôi từng sở hữu.",
+    author: "Minh Tuấn",
+    role: "Pro Gamer"
+  },
+  {
+    rating: 5,
+    text: "Render 4K video nhanh gấp 3 lần. Thành Công Gear hiểu nhu cầu creator.",
+    author: "Phương Anh",
+    role: "Video Editor"
+  },
+  {
+    rating: 5,
+    text: "Overclock ổn định, nhiệt độ mát mẻ. Tuyệt vời cho streaming.",
+    author: "Đức Anh",
+    role: "Streamer"
+  }
+];
+---
+
+<section class="testimonials">
+  <div class="testimonials-track">
+    {testimonials.map((testimonial) => (
+      <div class="testimonial-card">
+        <div class="testimonial-rating">{'★'.repeat(testimonial.rating)}</div>
+        <p class="testimonial-text">{testimonial.text}</p>
+        <div class="testimonial-author">
+          <span class="author-name">{testimonial.author}</span>
+          <span class="author-role">{testimonial.role}</span>
+        </div>
+      </div>
+    ))}
+    {/* Duplicate for seamless loop */}
+    {testimonials.map((testimonial) => (
+      <div class="testimonial-card">
+        <div class="testimonial-rating">{'★'.repeat(testimonial.rating)}</div>
+        <p class="testimonial-text">{testimonial.text}</p>
+        <div class="testimonial-author">
+          <span class="author-name">{testimonial.author}</span>
+          <span class="author-role">{testimonial.role}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

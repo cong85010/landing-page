@@ -1,0 +1,48 @@
+<svg width="400" height="500" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- PC Case Background -->
+  <rect x="50" y="30" width="300" height="440" fill="#1A1A1A" stroke="#C8102E" stroke-width="3"/>
+
+  <!-- Tempered Glass Panel -->
+  <rect x="60" y="50" width="280" height="380" fill="url(#glass-gradient)" opacity="0.3"/>
+
+  <!-- GPU -->
+  <rect x="80" y="280" width="240" height="60" fill="#2A2A2A" stroke="#FFD700" stroke-width="2"/>
+  <text x="200" y="315" font-family="monospace" font-size="14" fill="#FFD700" text-anchor="middle">RTX 4070 Ti</text>
+
+  <!-- CPU Cooler -->
+  <circle cx="200" cy="140" r="50" fill="#2A2A2A" stroke="#00E5FF" stroke-width="2"/>
+  <circle cx="200" cy="140" r="35" fill="none" stroke="#00E5FF" stroke-width="1" opacity="0.5"/>
+  <text x="200" y="145" font-family="monospace" font-size="12" fill="#00E5FF" text-anchor="middle">i7-14700K</text>
+
+  <!-- RAM Sticks -->
+  <rect x="100" y="220" width="60" height="15" fill="#C8102E" opacity="0.8"/>
+  <rect x="170" y="220" width="60" height="15" fill="#C8102E" opacity="0.8"/>
+  <rect x="240" y="220" width="60" height="15" fill="#C8102E" opacity="0.8"/>
+
+  <!-- Fans -->
+  <circle cx="120" cy="380" r="30" fill="none" stroke="#B026FF" stroke-width="2"/>
+  <circle cx="200" cy="380" r="30" fill="none" stroke="#B026FF" stroke-width="2"/>
+  <circle cx="280" cy="380" r="30" fill="none" stroke="#B026FF" stroke-width="2"/>
+
+  <!-- RGB Strips -->
+  <rect x="60" y="440" width="280" height="5" fill="url(#rgb-gradient)"/>
+
+  <!-- Power Button -->
+  <circle cx="330" cy="60" r="8" fill="#C8102E" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="glass-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E5FF;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#B026FF;stop-opacity:0.1" />
+    </linearGradient>
+    <linearGradient id="rgb-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C8102E" />
+      <stop offset="33%" style="stop-color:#00E5FF" />
+      <stop offset="66%" style="stop-color:#B026FF" />
+      <stop offset="100%" style="stop-color:#FFD700" />
+    </linearGradient>
+  </defs>
+</svg>

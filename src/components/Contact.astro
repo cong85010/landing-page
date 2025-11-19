@@ -1,0 +1,354 @@
+---
+// Contact Form Component
+---
+
+<section class="contact" id="contact">
+  <div class="contact-container">
+    <div class="contact-content">
+      <div class="section-number">03</div>
+
+      <div class="contact-header">
+        <h2 class="section-title">
+          <span class="title-vn">LIÊN HỆ</span>
+          <span class="title-en">Get In Touch</span>
+        </h2>
+        <p class="contact-subtitle">
+          Đặt hàng ngay hôm nay và nhận ưu đãi lên đến 15% cho khách hàng mới.
+          Tư vấn miễn phí 24/7.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="info-card">
+            <div class="info-icon">📞</div>
+            <h3>Hotline</h3>
+            <a href="tel:+84901234567">+84 901 234 567</a>
+            <p>24/7 Support</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">📧</div>
+            <h3>Email</h3>
+            <a href="mailto:hello@thanhconggear.vn">hello@thanhconggear.vn</a>
+            <p>Phản hồi trong 2 giờ</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">📍</div>
+            <h3>Showroom</h3>
+            <p>Hà Nội: 123 Phố Huế, Hai Bà Trưng</p>
+            <p>TP.HCM: 456 Nguyễn Trãi, Q.1</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">⏰</div>
+            <h3>Giờ làm việc</h3>
+            <p>Thứ 2 - Thứ 7: 9:00 - 21:00</p>
+            <p>Chủ nhật: 10:00 - 18:00</p>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Họ và tên *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Nguyễn Văn A"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Số điện thoại *</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                placeholder="0901 234 567"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@example.com"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="product">Sản phẩm quan tâm</label>
+              <select id="product" name="product">
+                <option value="">-- Chọn sản phẩm --</option>
+                <option value="warrior">WARRIOR - Gaming PC</option>
+                <option value="titan">TITAN - Flagship PC</option>
+                <option value="creator">CREATOR - Workstation</option>
+                <option value="custom">Custom Build</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="message">Tin nhắn</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Cho chúng tôi biết yêu cầu của bạn..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary large">
+              <span class="btn-bg"></span>
+              <span class="btn-text">GỬI YÊU CẦU</span>
+              <span class="btn-arrow">→</span>
+            </button>
+
+            <div class="form-message" id="formMessage"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    min-height: 100vh;
+    padding: var(--section-padding) 5%;
+    position: relative;
+    background: linear-gradient(135deg, rgba(200, 16, 46, 0.05), rgba(10, 10, 10, 0.9));
+  }
+
+  .contact-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .contact-content {
+    position: relative;
+  }
+
+  .contact-header {
+    margin-bottom: 60px;
+  }
+
+  .contact-subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--silver);
+    max-width: 700px;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .info-card {
+    padding: 30px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid var(--steel);
+    border-left: 3px solid var(--red-primary);
+    transition: var(--transition);
+  }
+
+  .info-card:hover {
+    transform: translateX(10px);
+    border-left-width: 6px;
+    box-shadow: -10px 10px 30px rgba(200, 16, 46, 0.2);
+  }
+
+  .info-icon {
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
+
+  .info-card h3 {
+    font-family: var(--font-title);
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .info-card a {
+    color: var(--gold);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+    transition: var(--transition);
+  }
+
+  .info-card a:hover {
+    color: var(--red-primary);
+  }
+
+  .info-card p {
+    color: var(--silver);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 5px 0;
+  }
+
+  .contact-form-wrapper {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--steel);
+    padding: 50px;
+  }
+
+  .contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-group label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 15px;
+    background: rgba(42, 42, 42, 0.8);
+    border: 1px solid var(--steel);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    transition: var(--transition);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--red-primary);
+    box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.2);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .contact-form button {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+  }
+
+  .form-message {
+    grid-column: 1 / -1;
+    padding: 15px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    border-radius: 4px;
+    display: none;
+  }
+
+  .form-message.success {
+    display: block;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--green-tech);
+    color: var(--green-tech);
+  }
+
+  .form-message.error {
+    display: block;
+    background: rgba(200, 16, 46, 0.1);
+    border: 1px solid var(--red-primary);
+    color: var(--red-primary);
+  }
+
+  @media (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-form-wrapper {
+      padding: 30px 20px;
+    }
+
+    .contact-form {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const formMessage = document.getElementById('formMessage');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    // Simulate form submission
+    try {
+      // In production, replace with actual API endpoint
+      // const response = await fetch('/api/contact', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // });
+
+      // Simulate success
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      if (formMessage) {
+        formMessage.className = 'form-message success';
+        formMessage.textContent = '✓ Cảm ơn bạn! Chúng tôi sẽ liên hệ trong 24h.';
+      }
+
+      form.reset();
+
+      setTimeout(() => {
+        if (formMessage) {
+          formMessage.style.display = 'none';
+        }
+      }, 5000);
+
+    } catch (error) {
+      if (formMessage) {
+        formMessage.className = 'form-message error';
+        formMessage.textContent = '✗ Có lỗi xảy ra. Vui lòng thử lại sau.';
+      }
+    }
+  });
+</script>

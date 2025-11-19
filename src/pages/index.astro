@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Philosophy from '../components/Philosophy.astro';
+import Arsenal from '../components/Arsenal.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+
+const pageTitle = "Thành Công Gear - Forge Your Victory | Custom Gaming PC Việt Nam";
+const pageDescription = "Thành Công Gear chế tác gaming PC cao cấp thủ công tại Việt Nam. RTX 4090, i9-14900K, DDR5 RAM. Hiệu năng đỉnh cao cho game thủ và creator chuyên nghiệp.";
+const keywords = "gaming pc vietnam, custom pc, máy tính gaming, pc cao cấp, gaming rig, rtx 4090, i9 14900k, thành công gear";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={keywords}
+>
+  <Hero />
+  <Philosophy />
+  <Arsenal />
+  <Testimonials />
+  <Contact />
+</Layout>

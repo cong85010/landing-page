@@ -1,0 +1,9 @@
+# robots.txt for Thành Công Gear
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://thanhconggear.vn/sitemap-index.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1

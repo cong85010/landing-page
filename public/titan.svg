@@ -1,0 +1,66 @@
+<svg width="400" height="500" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- PC Case Background - Premium Gold Accent -->
+  <rect x="50" y="30" width="300" height="440" fill="#0A0A0A" stroke="#FFD700" stroke-width="4"/>
+
+  <!-- Tempered Glass Panel -->
+  <rect x="60" y="50" width="280" height="380" fill="url(#glass-gradient-titan)" opacity="0.4"/>
+
+  <!-- Dual GPU Setup -->
+  <rect x="80" y="240" width="240" height="70" fill="#2A2A2A" stroke="#FFD700" stroke-width="3"/>
+  <text x="200" y="275" font-family="monospace" font-size="16" fill="#FFD700" text-anchor="middle" font-weight="bold">RTX 4090</text>
+
+  <rect x="80" y="320" width="240" height="50" fill="#2A2A2A" stroke="#FFD700" stroke-width="2" opacity="0.6"/>
+
+  <!-- Premium CPU Cooler -->
+  <circle cx="200" cy="130" r="60" fill="#1A1A1A" stroke="#FFD700" stroke-width="3"/>
+  <circle cx="200" cy="130" r="45" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.7"/>
+  <circle cx="200" cy="130" r="30" fill="none" stroke="#C8102E" stroke-width="2"/>
+  <text x="200" y="135" font-family="monospace" font-size="12" fill="#FFD700" text-anchor="middle">i9-14900K</text>
+
+  <!-- RAM Sticks - 64GB -->
+  <rect x="90" y="200" width="70" height="18" fill="url(#gold-gradient)"/>
+  <rect x="165" y="200" width="70" height="18" fill="url(#gold-gradient)"/>
+  <rect x="240" y="200" width="70" height="18" fill="url(#gold-gradient)"/>
+
+  <!-- Premium Fans with Gold -->
+  <circle cx="110" cy="390" r="35" fill="none" stroke="#FFD700" stroke-width="3"/>
+  <circle cx="200" cy="390" r="35" fill="none" stroke="#FFD700" stroke-width="3"/>
+  <circle cx="290" cy="390" r="35" fill="none" stroke="#FFD700" stroke-width="3"/>
+
+  <!-- RGB Strips - Premium -->
+  <rect x="60" y="440" width="280" height="8" fill="url(#rgb-gradient-titan)"/>
+  <rect x="50" y="50" width="8" height="380" fill="url(#rgb-gradient-vertical)"/>
+
+  <!-- Premium Badge -->
+  <rect x="280" y="40" width="60" height="30" fill="#FFD700"/>
+  <text x="310" y="60" font-family="monospace" font-size="10" fill="#0A0A0A" text-anchor="middle" font-weight="bold">TITAN</text>
+
+  <!-- Power Button - Pulsing Gold -->
+  <circle cx="330" cy="60" r="10" fill="#FFD700">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="glass-gradient-titan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#C8102E;stop-opacity:0.2" />
+    </linearGradient>
+    <linearGradient id="rgb-gradient-titan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700" />
+      <stop offset="25%" style="stop-color:#C8102E" />
+      <stop offset="50%" style="stop-color:#00E5FF" />
+      <stop offset="75%" style="stop-color:#FFD700" />
+      <stop offset="100%" style="stop-color:#C8102E" />
+    </linearGradient>
+    <linearGradient id="rgb-gradient-vertical" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700" />
+      <stop offset="50%" style="stop-color:#C8102E" />
+      <stop offset="100%" style="stop-color:#FFD700" />
+    </linearGradient>
+    <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700" />
+      <stop offset="100%" style="stop-color:#B8860B" />
+    </linearGradient>
+  </defs>
+</svg>

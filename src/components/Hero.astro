@@ -1,0 +1,104 @@
+---
+// Hero Component
+---
+
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-label">
+      <span class="label-line"></span>
+      <span>2025 COLLECTION</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="title-main" data-text="CHIẾN THẮNG">CHIẾN THẮNG</span>
+      <span class="title-sub">ĐƯỢC RÈN LUYỆN</span>
+      <span class="title-eng">FORGED IN STEEL</span>
+    </h1>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">RTX 4090</span>
+        <span class="stat-label">TI GRAPHICS</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">i9-14900K</span>
+        <span class="stat-label">PROCESSOR</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">192GB</span>
+        <span class="stat-label">DDR5 RAM</span>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#configure" class="btn-primary">
+        <span class="btn-bg"></span>
+        <span class="btn-text">KHÁM PHÁ</span>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="#specs" class="btn-secondary">
+        <span>Xem chi tiết</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="pc-showcase">
+      <div class="pc-glow"></div>
+      <div class="pc-frame">
+        <div class="pc-internals">
+          <div class="component gpu" style="--delay: 0.2s">
+            <span class="component-label">RTX 4090</span>
+          </div>
+          <div class="component cpu" style="--delay: 0.4s">
+            <span class="component-label">i9-14900K</span>
+          </div>
+          <div class="component ram" style="--delay: 0.6s">
+            <span class="component-label">DDR5</span>
+          </div>
+          <div class="component cooling" style="--delay: 0.8s">
+            <span class="component-label">COOLING</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-badge">
+      <div class="badge-circle">
+        <svg viewBox="0 0 100 100">
+          <path id="curve" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent"/>
+          <text>
+            <textPath href="#curve">
+              HANDCRAFTED • PREMIUM • PERFORMANCE •
+            </textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-text">SCROLL</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<script>
+  // Hero animations on load
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroTitle = document.querySelector('.hero-title');
+    const components = document.querySelectorAll('.component');
+
+    if (heroTitle) {
+      heroTitle.classList.add('animate-in');
+    }
+
+    components.forEach((comp, index) => {
+      setTimeout(() => {
+        comp.classList.add('animate-in');
+      }, index * 200);
+    });
+  });
+</script>

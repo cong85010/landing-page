@@ -1,0 +1,194 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  keywords: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  image = "/og-image.jpg",
+  canonical = Astro.url.pathname
+} = Astro.props;
+
+const siteUrl = "https://thanhconggear.vn";
+const fullUrl = `${siteUrl}${canonical}`;
+const ogImage = `${siteUrl}${image}`;
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <!-- Essential Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- SEO Meta Tags -->
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta name="keywords" content={keywords}>
+  <meta name="author" content="Thành Công Gear">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href={fullUrl}>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={fullUrl}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="Thành Công Gear">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content={fullUrl}>
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImage}>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonts - Vietnamese Support -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;700&family=Montserrat:wght@400;600;700;900&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Thành Công Gear",
+    "description": description,
+    "url": siteUrl,
+    "logo": `${siteUrl}/logo.png`,
+    "image": ogImage,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hà Nội",
+      "addressCountry": "VN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "21.0285",
+      "longitude": "105.8542"
+    },
+    "telephone": "+84901234567",
+    "priceRange": "$$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "127"
+    }
+  })} />
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <span class="logo-vn">THÀNH CÔNG</span>
+      <span class="logo-en">GEAR</span>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links">
+      <a href="#hero">Trang Chủ</a>
+      <a href="#forge">Triết Lý</a>
+      <a href="#arsenal">Sản Phẩm</a>
+      <a href="#contact" class="nav-cta">Liên Hệ</a>
+    </div>
+  </nav>
+
+  <script>
+    // Mobile navigation toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    navToggle?.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks?.classList.toggle('active');
+      document.body.classList.toggle('nav-open');
+    });
+
+    // Close menu when clicking on links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle?.classList.remove('active');
+        navLinks?.classList.remove('active');
+        document.body.classList.remove('nav-open');
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href') || '');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+  <!-- Main Content -->
+  <slot />
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-vn">THÀNH CÔNG</span>
+          <span class="logo-en">GEAR</span>
+        </div>
+        <p>Forging Victory Since 2020</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Sản Phẩm</h4>
+          <a href="#">Gaming PCs</a>
+          <a href="#">Workstations</a>
+          <a href="#">Custom Builds</a>
+        </div>
+        <div class="footer-column">
+          <h4>Hỗ Trợ</h4>
+          <a href="#">Bảo Hành</a>
+          <a href="#">FAQ</a>
+          <a href="#">Liên Hệ</a>
+        </div>
+        <div class="footer-column">
+          <h4>Theo Dõi</h4>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Thành Công Gear. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

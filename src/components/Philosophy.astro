@@ -1,0 +1,58 @@
+---
+// Philosophy Section Component
+---
+
+<section class="philosophy" id="forge">
+  <div class="philosophy-content">
+    <div class="section-number">01</div>
+    <h2 class="section-title">
+      <span class="title-vn">TRIẾT LÝ</span>
+      <span class="title-en">The Forge Philosophy</span>
+    </h2>
+
+    <div class="philosophy-grid">
+      <div class="philosophy-text">
+        <p class="lead-text">Mỗi chiếc PC là một tác phẩm nghệ thuật được chế tác thủ công, nơi công nghệ cao cấp gặp gỡ tay nghề thủ công Việt Nam.</p>
+        <p>Chúng tôi không chỉ lắp ráp máy tính. Chúng tôi rèn giũa vũ khí chiến thắng cho những game thủ và sáng tạo nội dung đỉnh cao.</p>
+      </div>
+
+      <div class="philosophy-features">
+        <div class="feature-card" style="--index: 0">
+          <div class="feature-icon">🔥</div>
+          <h3>Thủ Công Cao Cấp</h3>
+          <p>Lắp ráp thủ công bởi kỹ thuật viên 10+ năm kinh nghiệm</p>
+        </div>
+        <div class="feature-card" style="--index: 1">
+          <div class="feature-icon">⚡</div>
+          <h3>Hiệu Năng Đỉnh Cao</h3>
+          <p>Overclocked & stress-tested 72 giờ liên tục</p>
+        </div>
+        <div class="feature-card" style="--index: 2">
+          <div class="feature-icon">💎</div>
+          <h3>Thẩm Mỹ Độc Đáo</h3>
+          <p>Custom cable, RGB sync, thermal solution riêng biệt</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.feature-card').forEach(card => {
+    observer.observe(card);
+  });
+</script>

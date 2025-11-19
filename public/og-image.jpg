@@ -1,0 +1,42 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+
+  <!-- Grid Pattern -->
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#2A2A2A" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.3"/>
+
+  <!-- Red Glow -->
+  <circle cx="200" cy="315" r="300" fill="#C8102E" opacity="0.2" filter="blur(80px)"/>
+  <circle cx="1000" cy="315" r="250" fill="#FFD700" opacity="0.15" filter="blur(60px)"/>
+
+  <!-- Main Text -->
+  <text x="100" y="200" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="#FFFFFF">
+    THÀNH CÔNG
+  </text>
+  <text x="100" y="280" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="#C8102E">
+    GEAR
+  </text>
+
+  <!-- Subtitle -->
+  <text x="100" y="350" font-family="monospace" font-size="32" fill="#FFD700" letter-spacing="4">
+    FORGE YOUR VICTORY
+  </text>
+
+  <!-- Specs -->
+  <rect x="100" y="400" width="1000" height="150" fill="rgba(26, 26, 26, 0.8)" stroke="#C8102E" stroke-width="2"/>
+
+  <text x="150" y="450" font-family="monospace" font-size="24" fill="#FFD700">
+    RTX 4090 • i9-14900K • 192GB DDR5
+  </text>
+  <text x="150" y="490" font-family="monospace" font-size="20" fill="#C0C0C0">
+    Custom Gaming PC - Handcrafted in Vietnam
+  </text>
+  <text x="150" y="520" font-family="monospace" font-size="18" fill="#C0C0C0">
+    thanhconggear.vn
+  </text>
+</svg>
