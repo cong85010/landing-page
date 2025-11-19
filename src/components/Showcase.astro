@@ -1,0 +1,348 @@
+---
+// PC Showcase Gallery Component
+const showcases = [
+  {
+    id: 'red-dragon',
+    title: "The Red Dragon",
+    specs: "RTX 4090 • i9-14900K • 64GB DDR5",
+    description: "Custom red theme với full RGB sync",
+    image: "/showcase/pc1.jpg",
+    category: "Gaming"
+  },
+  {
+    id: 'arctic-storm',
+    title: "Arctic Storm",
+    specs: "RTX 4080 • i7-14700K • 32GB DDR5",
+    description: "White build với custom water cooling",
+    image: "/showcase/pc2.jpg",
+    category: "Gaming"
+  },
+  {
+    id: 'shadow-reaper',
+    title: "Shadow Reaper",
+    specs: "RTX 4090 • AMD 7950X • 128GB DDR5",
+    description: "Stealth black theme cho content creator",
+    image: "/showcase/pc3.jpg",
+    category: "Workstation"
+  },
+  {
+    id: 'gold-edition',
+    title: "Gold Edition",
+    specs: "RTX 4070 Ti • i7-13700K • 32GB DDR5",
+    description: "Premium gold accents luxury build",
+    image: "/showcase/pc4.jpg",
+    category: "Gaming"
+  },
+  {
+    id: 'neon-genesis',
+    title: "Neon Genesis",
+    specs: "RTX 4080 • AMD 7900X • 64GB DDR5",
+    description: "Cyberpunk inspired RGB masterpiece",
+    image: "/showcase/pc5.jpg",
+    category: "Gaming"
+  },
+  {
+    id: 'pro-workstation',
+    title: "Pro Workstation",
+    specs: "RTX 4090 • Threadripper • 256GB DDR5",
+    description: "Enterprise level performance beast",
+    image: "/showcase/pc6.jpg",
+    category: "Workstation"
+  }
+];
+---
+
+<section class="showcase" id="showcase">
+  <div class="showcase-container">
+    <div class="showcase-header">
+      <div class="section-number">03</div>
+      <h2 class="section-title">
+        <span class="title-vn">TRƯNG BÀY</span>
+        <span class="title-en">Our Masterpieces</span>
+      </h2>
+      <p class="showcase-subtitle">
+        Khám phá những tác phẩm đã được chế tác bởi THÀNH CÔNG PC
+      </p>
+    </div>
+
+    <div class="showcase-grid">
+      {showcases.map((item) => (
+        <div class="showcase-card" data-category={item.category}>
+          <div class="showcase-image">
+            <img src={item.image} alt={item.title} loading="lazy" />
+            <div class="showcase-overlay">
+              <div class="overlay-content">
+                <span class="showcase-category">{item.category}</span>
+                <h3 class="showcase-title">{item.title}</h3>
+                <p class="showcase-specs">{item.specs}</p>
+              </div>
+              <a href={`/product/${item.id}`} class="view-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="white" stroke-width="2"/>
+                  <path d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Xem Chi Tiết</span>
+              </a>
+            </div>
+          </div>
+          <div class="showcase-info">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase {
+    padding: var(--section-padding) 5%;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.8));
+    position: relative;
+  }
+
+  .showcase-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .showcase-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+  }
+
+  .section-number {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-display);
+    font-size: clamp(100px, 20vw, 150px);
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--steel);
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .section-title {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .title-vn {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 8vw, 60px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+  }
+
+  .title-en {
+    font-family: var(--font-mono);
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--gold);
+    letter-spacing: 4px;
+    opacity: 0.8;
+  }
+
+  .showcase-subtitle {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--silver);
+    font-family: var(--font-body);
+    position: relative;
+    z-index: 10;
+  }
+
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+  }
+
+  .showcase-card {
+    background: rgba(26, 26, 26, 0.8);
+    border: 2px solid var(--steel);
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+  }
+
+  .showcase-card:hover {
+    border-color: var(--red-primary);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(200, 16, 46, 0.3);
+  }
+
+  .showcase-image {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+
+  .showcase-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+
+  .showcase-card:hover .showcase-image img {
+    transform: scale(1.1);
+  }
+
+  .showcase-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.9) 100%);
+    opacity: 0;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+    gap: 20px;
+  }
+
+  .showcase-card:hover .showcase-overlay {
+    opacity: 1;
+  }
+
+  .overlay-content {
+    transform: translateY(20px);
+    transition: var(--transition);
+    transition-delay: 0.1s;
+  }
+
+  .showcase-card:hover .overlay-content {
+    transform: translateY(0);
+  }
+
+  .showcase-category {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--red-primary);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .showcase-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .showcase-specs {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+
+  .view-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid var(--white);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: var(--transition);
+    transform: translateY(20px);
+    opacity: 0;
+    text-decoration: none;
+  }
+
+  .showcase-card:hover .view-btn {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.2s;
+  }
+
+  .view-btn:hover {
+    background: var(--red-primary);
+    border-color: var(--red-primary);
+  }
+
+  .showcase-info {
+    padding: 25px;
+  }
+
+  .showcase-info h3 {
+    font-family: var(--font-title);
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .showcase-info p {
+    font-size: 14px;
+    color: var(--silver);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .showcase-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .showcase-image {
+      height: 280px;
+    }
+  }
+</style>
+
+<script>
+  // Lazy load images with intersection observer
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '50px'
+  };
+
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+
+        setTimeout(() => {
+          card.style.transition = 'all 0.6s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 100);
+
+        imageObserver.unobserve(card);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.showcase-card').forEach((card, index) => {
+    card.style.transitionDelay = `${index * 0.1}s`;
+    imageObserver.observe(card);
+  });
+</script>

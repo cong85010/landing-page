@@ -1,0 +1,9 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#1A1A1A"/>
+  <rect x="250" y="100" width="300" height="400" fill="#0A0A0A" stroke="#FFD700" stroke-width="4"/>
+  <rect x="280" y="350" width="240" height="70" fill="#2A2A2A" stroke="#FFD700" stroke-width="3"/>
+  <text x="400" y="390" font-family="monospace" font-size="18" fill="#FFD700" text-anchor="middle" font-weight="bold">RTX 4070 Ti</text>
+  <circle cx="400" cy="220" r="50" fill="#2A2A2A" stroke="#FFD700" stroke-width="3"/>
+  <text x="400" y="230" font-family="monospace" font-size="14" fill="#FFD700" text-anchor="middle">i7-13700K</text>
+  <text x="400" y="550" font-family="Arial, sans-serif" font-size="32" fill="#FFD700" text-anchor="middle" font-weight="bold">GOLD EDITION</text>
+</svg>

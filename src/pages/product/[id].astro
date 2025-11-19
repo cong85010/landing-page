@@ -1,0 +1,810 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Product data - must be defined before getStaticPaths
+export const productsData = {
+    id: 1,
+    slug: 'arctic-storm',
+    name: 'iBUYPOWER Y60 Gaming Desktop PC',
+    tagline: 'Hiệu Năng Cực Mạnh: i9-14900F, RTX 4060 Ti & Tản Nước 240mm',
+    price: 1799.99,
+    originalPrice: 2199.99,
+    discount: 18,
+    currency: 'USD',
+    stock: 'In Stock',
+    category: 'Gaming Desktop',
+    brand: 'iBUYPOWER',
+    rating: 4.8,
+    reviews: 127,
+    description: 'Máy tính chơi game iBUYPOWER Y60 (Model Y60BI9N46T04) được trang bị CPU Intel Core i9 thế hệ 14 (14900F) và GPU NVIDIA GeForce RTX 4060 Ti 8GB. Hệ thống sở hữu 32GB RAM DDR5 RGB tốc độ 5200MHz và ổ cứng 1TB NVMe SSD. Đặc biệt, PC này sử dụng hệ thống tản nhiệt nước AIO 240mm và đi kèm Windows 11 Home Advanced.',
+    images: [
+      '/showcase/pc-1.jpg',
+      '/showcase/pc-2.jpg',
+      '/showcase/pc-3.jpg',
+      '/showcase/pc-4.jpg'
+    ],
+    specs: {
+      cpu: {
+        name: 'Intel Core i9-14900F',
+        details: 'Native 24-core processing, Tần số cơ bản 2.0 GHz, Tăng tốc lên đến 5.8 GHz'
+      },
+      gpu: {
+        name: 'NVIDIA GeForce RTX 4060 Ti',
+        details: '8GB GDDR6X VRAM, Driven by 8GB of dedicated video memory'
+      },
+      ram: {
+        name: '32GB DDR5 RGB RAM',
+        details: '5200MHz, Cấu hình (2) thanh 16GB. Motherboard có thể nâng cấp tối đa 4 thanh RAM.'
+      },
+      storage: {
+        name: '1TB NVMe SSD',
+        details: 'Tốc độ khởi động và tải ứng dụng nhanh'
+      },
+      cooling: {
+        name: 'Tản Nhiệt Nước (Liquid Cooling)',
+        details: 'Hệ thống tản nhiệt CPU nước AIO 240mm kèm theo quạt RGB'
+      },
+      psu: {
+        name: 'Bộ Nguồn (Power Supply)',
+        details: 'Công suất tối đa **600 watts**' 
+      },
+      case: {
+        name: 'iBUYPOWER Y60 Case (Black)',
+        details: 'Thiết kế kính cường lực Panoramic. Kích thước: 18" H x 11.2" W x 18.2" D.'
+      },
+      motherboard: {
+        name: 'Motherboard Model Number',
+        details: '**B760 D5**'
+      }
+    },
+    features: [
+      'Hệ điều hành: Windows 11 Home Advanced (cài đặt sẵn)',
+      'Kết nối: Wi-Fi, Bluetooth, 1x Ethernet',
+      'Cổng xuất hình: **3 x DisplayPort, 1 x HDMI**', 
+      'Cổng kết nối USB: **Tổng cộng 11 cổng**',
+      'Phụ kiện kèm theo: Bàn phím (có dây, RGB) và Chuột (có dây) gaming',
+      'Trọng lượng: 38 pounds',
+      'Bảo hành: 1 năm (Linh kiện & Lao động)',
+      'UPC: 848604049113'
+    ],
+    buyLinks: [
+      {
+        platform: 'Best Buy Product Page',
+        url: 'https://www.bestbuy.com/product/ibuypower-y60-gaming-desktop-pc-intel-core-i9-14900f-nvidia-geforce-rtx-4060-ti-8gb-32gb-ddr5-rgb-ram-1tb-nvme-ssd-black/J3R75JY2R6',
+        icon: '🔗'
+      }
+    ],
+    relatedProducts: null
+};
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { id: productsData.slug },
+      props: { product: productsData }
+    }
+  ];
+}
+
+const { product }: { product: any} = Astro.props;
+
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+const pageTitle = `${product.name} - THÀNH CÔNG PC`;
+const pageDescription = product.description.substring(0, 160);
+---
+
+<Layout title={pageTitle} description={pageDescription} keywords={`${product.name}, gaming pc, ${product.specs.cpu.name}, ${product.specs.gpu.name}`}>
+  <div class="product-page">
+    <!-- Back Button -->
+    <div class="back-nav">
+      <a href="/#showcase" class="back-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Quay lại Showcase</span>
+      </a>
+    </div>
+
+    <!-- Product Hero -->
+    <section class="product-hero">
+      <div class="product-container">
+        <div class="product-grid">
+          <!-- Image Gallery -->
+          <div class="product-gallery">
+            <div class="main-image">
+              <img src={product.images[0]} alt={product.name} id="mainImage" />
+              <div class="image-badge">{product.category}</div>
+            </div>
+            <div class="thumbnail-grid">
+              {product.images.map((img, index) => (
+                <img
+                  src={img}
+                  alt={`${product.name} ${index + 1}`}
+                  class="thumbnail"
+                  data-index={index}
+                />
+              ))}
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <div class="product-meta">
+              <span class="product-brand">{product.brand}</span>
+              <span class="product-stock in-stock">{product.stock}</span>
+            </div>
+
+            <h1 class="product-name">{product.name}</h1>
+            <p class="product-tagline">{product.tagline}</p>
+
+            <div class="product-rating">
+              <div class="stars">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill={i < Math.floor(product.rating) ? '#FFD700' : 'none'} stroke="#FFD700" stroke-width="2">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                  </svg>
+                ))}
+              </div>
+              <span class="rating-text">{product.rating} ({product.reviews} đánh giá)</span>
+            </div>
+
+            <div class="pricing-section">
+              <div class="price-row">
+                <div class="product-price">
+                  ${product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                </div>
+                {product.originalPrice && (
+                  <div class="original-price">
+                    ${product.originalPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  </div>
+                )}
+              </div>
+              {product.discount && (
+                <div class="discount-badge">SAVE {product.discount}%</div>
+              )}
+            </div>
+
+            <p class="product-description">{product.description}</p>
+
+            <!-- Buy Buttons -->
+            <div class="buy-section">
+              <h3>Mua ngay tại:</h3>
+              <div class="buy-links">
+                {product.buyLinks.map(link => (
+                  <a href={link.url} class="buy-btn" target="_blank" rel="noopener">
+                    <span class="buy-icon">{link.icon}</span>
+                    <span>{link.platform}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features-list">
+              <h3>Đặc điểm nổi bật:</h3>
+              <ul>
+                {product.features.map(feature => (
+                  <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M20 6L9 17L4 12" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specifications -->
+    <section class="specifications">
+      <div class="product-container">
+        <h2 class="section-title">
+          <span class="title-vn">THÔNG SỐ KỸ THUẬT</span>
+          <span class="title-en">Technical Specifications</span>
+        </h2>
+
+        <div class="specs-grid">
+          {Object.entries(product.specs).map(([key, spec]) => (
+            <div class="spec-card">
+              <div class="spec-header">
+                <div class="spec-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="4" width="16" height="16" stroke="#C8102E" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="#FFD700"/>
+                  </svg>
+                </div>
+                <h3>{key.toUpperCase()}</h3>
+              </div>
+              <p class="spec-name">{spec.name}</p>
+              <p class="spec-details">{spec.details}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products">
+      <div class="product-container">
+        <h2 class="section-title">
+          <span class="title-vn">SẢN PHẨM LIÊN QUAN</span>
+          <span class="title-en">You May Also Like</span>
+        </h2>
+
+        <div class="related-grid">
+          {[productsData].map(related => {
+            if (!related) return null;
+            return (
+              <a href={`/product/${related.id}`} class="related-card">
+                <img src={related.images[0]} alt={related.name} />
+                <div class="related-info">
+                  <h3>{related.name}</h3>
+                  <p class="related-price">{related.price}</p>
+                  <span class="view-link">Xem chi tiết →</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .product-page {
+    background: var(--black);
+    min-height: 100vh;
+    padding-top: 100px;
+  }
+
+  .back-nav {
+    padding: 20px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--silver);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    transition: var(--transition);
+  }
+
+  .back-btn:hover {
+    color: var(--gold);
+    transform: translateX(-5px);
+  }
+
+  .product-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  /* Product Hero */
+  .product-hero {
+    padding: 40px 0 80px;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .product-gallery {
+    position: sticky;
+    top: 120px;
+  }
+
+  .main-image {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: var(--charcoal);
+    border: 2px solid var(--steel);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background: var(--red-primary);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border: 2px solid var(--steel);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .thumbnail:hover,
+  .thumbnail.active {
+    border-color: var(--red-primary);
+    transform: scale(1.05);
+  }
+
+  /* Product Info */
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .product-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .product-brand {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid var(--gold);
+  }
+
+  .product-stock {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+
+  .product-stock.in-stock {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid #4ade80;
+  }
+
+  .product-name {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 48px);
+    color: var(--white);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .product-tagline {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--silver);
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .stars {
+    display: flex;
+    gap: 4px;
+  }
+
+  .rating-text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--silver);
+  }
+
+  .pricing-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    border-top: 1px solid var(--steel);
+    border-bottom: 1px solid var(--steel);
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .product-price {
+    font-family: var(--font-display);
+    font-size: 42px;
+    color: var(--red-primary);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .original-price {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--silver);
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+
+  .discount-badge {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    background: var(--red-primary);
+    padding: 8px 16px;
+    letter-spacing: 2px;
+    border-radius: 4px;
+  }
+
+  .product-description {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--silver);
+  }
+
+  /* Buy Section */
+  .buy-section h3 {
+    font-family: var(--font-title);
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 15px;
+  }
+
+  .buy-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .buy-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    background: rgba(200, 16, 46, 0.1);
+    border: 2px solid var(--red-primary);
+    color: var(--white);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    transition: var(--transition);
+    justify-content: center;
+  }
+
+  .buy-btn:hover {
+    background: var(--red-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(200, 16, 46, 0.3);
+  }
+
+  .buy-icon {
+    font-size: 20px;
+  }
+
+  /* Features List */
+  .features-list h3 {
+    font-family: var(--font-title);
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 15px;
+  }
+
+  .features-list ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .features-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--silver);
+    font-size: 16px;
+  }
+
+  /* Specifications */
+  .specifications {
+    padding: 80px 0;
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.5), transparent);
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .title-vn {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 60px);
+    color: var(--white);
+  }
+
+  .title-en {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 4px;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .spec-card {
+    padding: 30px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 2px solid var(--steel);
+    border-left: 4px solid var(--red-primary);
+    transition: var(--transition);
+  }
+
+  .spec-card:hover {
+    transform: translateX(10px);
+    border-left-width: 8px;
+    box-shadow: -10px 10px 30px rgba(200, 16, 46, 0.2);
+  }
+
+  .spec-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .spec-header h3 {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  .spec-name {
+    font-family: var(--font-title);
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .spec-details {
+    font-size: 14px;
+    color: var(--silver);
+    line-height: 1.6;
+  }
+
+  /* Related Products */
+  .related-products {
+    padding: 80px 0;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+  }
+
+  .related-card {
+    background: rgba(26, 26, 26, 0.8);
+    border: 2px solid var(--steel);
+    text-decoration: none;
+    transition: var(--transition);
+    overflow: hidden;
+  }
+
+  .related-card:hover {
+    border-color: var(--red-primary);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(200, 16, 46, 0.3);
+  }
+
+  .related-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .related-info {
+    padding: 25px;
+  }
+
+  .related-info h3 {
+    font-family: var(--font-title);
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .related-price {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--red-primary);
+    margin-bottom: 15px;
+  }
+
+  .view-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 1024px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .product-gallery {
+      position: relative;
+      top: 0;
+    }
+
+    .buy-links {
+      grid-template-columns: 1fr;
+    }
+
+    .product-price {
+      font-size: 36px;
+    }
+
+    .original-price {
+      font-size: 22px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-page {
+      padding-top: 80px;
+    }
+
+    .main-image {
+      height: 350px;
+    }
+
+    .thumbnail-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .thumbnail {
+      height: 80px;
+    }
+
+    .specs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .product-meta {
+      gap: 10px;
+    }
+
+    .product-brand,
+    .product-stock {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+
+    .product-price {
+      font-size: 32px;
+    }
+
+    .original-price {
+      font-size: 20px;
+    }
+
+    .pricing-section {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .discount-badge {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+
+    .product-rating {
+      flex-wrap: wrap;
+    }
+
+    .stars svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .rating-text {
+      font-size: 13px;
+    }
+
+    .buy-btn {
+      font-size: 13px;
+      padding: 12px 20px;
+    }
+
+    .spec-card {
+      padding: 20px;
+    }
+
+    .related-card img {
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .thumbnail-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .product-price {
+      font-size: 28px;
+    }
+
+    .original-price {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<script>
+  // Image gallery functionality
+  const thumbnails = document.querySelectorAll('.thumbnail');
+  const mainImage = document.getElementById('mainImage') as HTMLImageElement;
+
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', () => {
+      thumbnails.forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      if (mainImage) {
+        mainImage.src = (thumb as HTMLImageElement).src;
+      }
+    });
+
+    if (index === 0) {
+      thumb.classList.add('active');
+    }
+  });
+</script>
+</Layout>

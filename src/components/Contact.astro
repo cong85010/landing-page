@@ -21,28 +21,46 @@
       <div class="contact-grid">
         <div class="contact-info">
           <div class="info-card">
-            <div class="info-icon">📞</div>
+            <div class="info-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92V19.92C22 20.4696 21.5523 20.9167 21.0025 20.9199C18.0494 20.9468 15.1851 19.9788 12.8701 18.1848C10.7592 16.5654 9.14277 14.4409 8.2124 12.0257C7.27664 9.59527 7.06786 6.97525 7.60919 4.44817C7.77595 3.64218 8.47037 3.01978 9.28994 3.00191C9.52423 2.99616 9.75852 2.99984 9.99281 3.00264C10.549 3.00874 11.0104 3.41558 11.1201 3.96173L11.6388 6.44968C11.7375 6.94829 11.5194 7.45846 11.0929 7.70778L9.58697 8.56952C9.32849 8.71406 9.17882 8.99167 9.20668 9.28136C9.56351 12.0913 11.3733 14.5241 13.9611 15.6965C14.2451 15.8249 14.5775 15.7683 14.8071 15.5519L16.4418 14.0051C16.8477 13.6202 17.4668 13.5542 17.9439 13.8455L20.2894 15.2892C20.7214 15.5515 20.9504 16.0437 20.8726 16.5369L20.6354 17.8849C20.5576 18.3781 20.1765 18.7627 19.6832 18.8407C19.3921 18.8877 19.0993 18.9181 18.8044 18.9324C18.5089 18.9466 18.2128 18.9459 17.9169 18.9313C17.6209 18.9167 17.325 18.8881 17.0292 18.8457" stroke="#C8102E" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
             <h3>Hotline</h3>
             <a href="tel:+84901234567">+84 901 234 567</a>
             <p>24/7 Support</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">📧</div>
+            <div class="info-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7L10.94 11.3375C11.5885 11.7428 12.4115 11.7428 13.06 11.3375L20 7M5 18H19C20.1046 18 21 17.1046 21 16V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18Z" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <h3>Email</h3>
             <a href="mailto:hello@thanhconggear.vn">hello@thanhconggear.vn</a>
             <p>Phản hồi trong 2 giờ</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">📍</div>
+            <div class="info-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="#C8102E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <h3>Showroom</h3>
             <p>Hà Nội: 123 Phố Huế, Hai Bà Trưng</p>
             <p>TP.HCM: 456 Nguyễn Trãi, Q.1</p>
           </div>
 
           <div class="info-card">
-            <div class="info-icon">⏰</div>
+            <div class="info-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9" stroke="#C8102E" stroke-width="2"/>
+                <path d="M12 6V12L16 14" stroke="#C8102E" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
             <h3>Giờ làm việc</h3>
             <p>Thứ 2 - Thứ 7: 9:00 - 21:00</p>
             <p>Chủ nhật: 10:00 - 18:00</p>
@@ -175,8 +193,23 @@
   }
 
   .info-icon {
-    font-size: 32px;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .info-icon svg {
+    transition: var(--transition);
+  }
+
+  .info-card:hover .info-icon svg {
+    transform: scale(1.1);
+  }
+
+  .info-card:hover .info-icon svg path,
+  .info-card:hover .info-icon svg circle {
+    stroke: var(--gold);
   }
 
   .info-card h3 {

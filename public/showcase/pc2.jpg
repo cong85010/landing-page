@@ -1,0 +1,40 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Arctic Storm Theme -->
+  <rect width="800" height="600" fill="#FFFFFF"/>
+
+  <!-- Gradient background -->
+  <defs>
+    <radialGradient id="whiteGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#00E5FF;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#F0F0F0;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#whiteGlow)"/>
+
+  <!-- PC Case -->
+  <rect x="250" y="100" width="300" height="400" fill="#FFFFFF" stroke="#00E5FF" stroke-width="4"/>
+
+  <!-- Water Cooling Tubes -->
+  <path d="M 350 150 Q 400 180, 450 150" stroke="#00E5FF" stroke-width="6" fill="none"/>
+  <path d="M 350 200 Q 400 230, 450 200" stroke="#00E5FF" stroke-width="6" fill="none"/>
+
+  <!-- GPU -->
+  <rect x="280" y="350" width="240" height="70" fill="#E8E8E8" stroke="#00E5FF" stroke-width="3"/>
+  <text x="400" y="390" font-family="monospace" font-size="18" fill="#00E5FF" text-anchor="middle" font-weight="bold">RTX 4080</text>
+
+  <!-- CPU Water Block -->
+  <rect x="340" y="220" width="120" height="60" fill="#E8E8E8" stroke="#00E5FF" stroke-width="3"/>
+  <circle cx="400" cy="250" r="25" fill="#00E5FF" opacity="0.3"/>
+  <text x="400" y="255" font-family="monospace" font-size="14" fill="#0071C5" text-anchor="middle" font-weight="bold">COOLING</text>
+
+  <!-- RAM Sticks - White/Blue -->
+  <rect x="300" y="280" width="80" height="20" fill="#00E5FF" opacity="0.5"/>
+  <rect x="390" y="280" width="80" height="20" fill="#00E5FF" opacity="0.5"/>
+
+  <!-- Fans -->
+  <circle cx="350" cy="450" r="35" fill="none" stroke="#00E5FF" stroke-width="3"/>
+  <circle cx="450" cy="450" r="35" fill="none" stroke="#00E5FF" stroke-width="3"/>
+
+  <!-- Title -->
+  <text x="400" y="550" font-family="Arial, sans-serif" font-size="32" fill="#00E5FF" text-anchor="middle" font-weight="bold">ARCTIC STORM</text>
+</svg>

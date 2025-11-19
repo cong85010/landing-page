@@ -1,0 +1,9 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#000000"/>
+  <rect x="250" y="100" width="300" height="400" fill="#0A0A0A" stroke="#FFFFFF" stroke-width="3"/>
+  <rect x="280" y="350" width="240" height="70" fill="#1A1A1A" stroke="#FFFFFF" stroke-width="2"/>
+  <text x="400" y="390" font-family="monospace" font-size="18" fill="#FFFFFF" text-anchor="middle">RTX 4090</text>
+  <rect x="340" y="220" width="120" height="60" fill="#1A1A1A" stroke="#B026FF" stroke-width="2"/>
+  <text x="400" y="255" font-family="monospace" font-size="14" fill="#B026FF" text-anchor="middle">AMD 7950X</text>
+  <text x="400" y="550" font-family="Arial, sans-serif" font-size="32" fill="#FFFFFF" text-anchor="middle" font-weight="bold">SHADOW REAPER</text>
+</svg>

@@ -1,5 +1,5 @@
 /* ===============================================
-   THÀNH CÔNG GEAR - NEO-VIETNAMESE INDUSTRIAL LUXE
+   THÀNH CÔNG PC - NEO-VIETNAMESE INDUSTRIAL LUXE
    =============================================== */
 
 :root {
@@ -755,9 +755,20 @@ body {
 }
 
 .feature-icon {
-  font-size: 40px;
   margin-bottom: 20px;
-  filter: grayscale(0.5);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.feature-icon svg {
+  transition: var(--transition);
+  filter: drop-shadow(0 0 10px rgba(200, 16, 46, 0.3));
+}
+
+.feature-card:hover .feature-icon svg {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
 }
 
 .feature-card h3 {
@@ -972,68 +983,7 @@ body {
   box-shadow: var(--shadow-red);
 }
 
-/* ===============================================
-   TESTIMONIALS SECTION
-   =============================================== */
-
-.testimonials {
-  padding: 80px 0;
-  overflow: hidden;
-  background: linear-gradient(180deg, transparent, rgba(200, 16, 46, 0.05), transparent);
-}
-
-.testimonials-track {
-  display: flex;
-  gap: 40px;
-  animation: scrollTestimonials 30s linear infinite;
-}
-
-@keyframes scrollTestimonials {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-100% - 40px)); }
-}
-
-.testimonial-card {
-  min-width: 400px;
-  padding: 40px;
-  background: rgba(26, 26, 26, 0.8);
-  border: 1px solid var(--steel);
-  border-left: 3px solid var(--gold);
-}
-
-.testimonial-rating {
-  font-size: 20px;
-  color: var(--gold);
-  margin-bottom: 20px;
-}
-
-.testimonial-text {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--white);
-  margin-bottom: 25px;
-  font-style: italic;
-}
-
-.testimonial-author {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.author-name {
-  font-family: var(--font-title);
-  font-size: 18px;
-  color: var(--white);
-  letter-spacing: 1px;
-}
-
-.author-role {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--gold);
-  letter-spacing: 2px;
-}
+/* Note: Testimonials and Partners styles are now scoped in their components */
 
 /* ===============================================
    CTA SECTION

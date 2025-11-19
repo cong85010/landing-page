@@ -1,4 +1,4 @@
-# robots.txt for Thành Công Gear
+# robots.txt for THÀNH CÔNG PC
 User-agent: *
 Allow: /
 

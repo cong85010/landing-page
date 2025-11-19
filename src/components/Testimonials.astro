@@ -9,7 +9,7 @@ const testimonials = [
   },
   {
     rating: 5,
-    text: "Render 4K video nhanh gấp 3 lần. Thành Công Gear hiểu nhu cầu creator.",
+    text: "Render 4K video nhanh gấp 3 lần. THÀNH CÔNG PC hiểu nhu cầu creator.",
     author: "Phương Anh",
     role: "Video Editor"
   },
@@ -18,32 +18,197 @@ const testimonials = [
     text: "Overclock ổn định, nhiệt độ mát mẻ. Tuyệt vời cho streaming.",
     author: "Đức Anh",
     role: "Streamer"
+  },
+  {
+    rating: 5,
+    text: "Hỗ trợ nhiệt tình, bảo hành nhanh. Dịch vụ sau bán hàng xuất sắc!",
+    author: "Hoàng Nam",
+    role: "Developer"
+  },
+  {
+    rating: 5,
+    text: "Giá cả hợp lý, chất lượng vượt mong đợi. Sẽ giới thiệu cho bạn bè.",
+    author: "Thu Hà",
+    role: "Designer"
   }
 ];
 ---
 
 <section class="testimonials">
-  <div class="testimonials-track">
-    {testimonials.map((testimonial) => (
-      <div class="testimonial-card">
-        <div class="testimonial-rating">{'★'.repeat(testimonial.rating)}</div>
-        <p class="testimonial-text">{testimonial.text}</p>
-        <div class="testimonial-author">
-          <span class="author-name">{testimonial.author}</span>
-          <span class="author-role">{testimonial.role}</span>
-        </div>
+  <div class="testimonials-container">
+    <div class="testimonials-header">
+      <h2 class="testimonials-title">
+        <span class="title-vn">ĐÁNH GIÁ</span>
+        <span class="title-en">What Our Customers Say</span>
+      </h2>
+      <p class="testimonials-subtitle">
+        Hơn 500+ khách hàng hài lòng trên toàn quốc
+      </p>
+    </div>
+
+    <div class="testimonials-wrapper">
+      <div class="testimonials-track">
+        {/* Render 3 sets for seamless infinite loop */}
+        {[...testimonials, ...testimonials, ...testimonials].map((testimonial, index) => (
+          <div class="testimonial-card" key={index}>
+            <div class="testimonial-rating">{'★'.repeat(testimonial.rating)}</div>
+            <p class="testimonial-text">{testimonial.text}</p>
+            <div class="testimonial-author">
+              <span class="author-name">{testimonial.author}</span>
+              <span class="author-role">{testimonial.role}</span>
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-    {/* Duplicate for seamless loop */}
-    {testimonials.map((testimonial) => (
-      <div class="testimonial-card">
-        <div class="testimonial-rating">{'★'.repeat(testimonial.rating)}</div>
-        <p class="testimonial-text">{testimonial.text}</p>
-        <div class="testimonial-author">
-          <span class="author-name">{testimonial.author}</span>
-          <span class="author-role">{testimonial.role}</span>
-        </div>
-      </div>
-    ))}
+    </div>
   </div>
 </section>
+
+<style>
+  .testimonials {
+    padding: var(--section-padding) 5%;
+    overflow: hidden;
+    background: linear-gradient(180deg, transparent, rgba(200, 16, 46, 0.05), transparent);
+    position: relative;
+  }
+
+  .testimonials-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .testimonials-title {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .title-vn {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 8vw, 60px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+  }
+
+  .title-en {
+    font-family: var(--font-mono);
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--gold);
+    letter-spacing: 4px;
+    opacity: 0.8;
+  }
+
+  .testimonials-subtitle {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--silver);
+    font-family: var(--font-body);
+  }
+
+  .testimonials-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Fade edges for seamless effect */
+  .testimonials-wrapper::before,
+  .testimonials-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .testimonials-wrapper::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--black), transparent);
+  }
+
+  .testimonials-wrapper::after {
+    right: 0;
+    background: linear-gradient(-90deg, var(--black), transparent);
+  }
+
+  .testimonials-track {
+    display: flex;
+    gap: 40px;
+    animation: scrollTestimonials 40s linear infinite;
+    width: max-content;
+  }
+
+  .testimonials-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes scrollTestimonials {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% / 3));
+    }
+  }
+
+  .testimonial-card {
+    min-width: 400px;
+    max-width: 400px;
+    padding: 40px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid var(--steel);
+    border-left: 3px solid var(--gold);
+    flex-shrink: 0;
+  }
+
+  .testimonial-rating {
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .testimonial-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--white);
+    margin-bottom: 25px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .author-name {
+    font-family: var(--font-title);
+    font-size: 18px;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+
+  .author-role {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .testimonial-card {
+      min-width: 320px;
+      max-width: 320px;
+      padding: 30px;
+    }
+  }
+</style>

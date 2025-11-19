@@ -1,6 +1,6 @@
-# 🔥 Thành Công Gear - Landing Page
+# 🔥 THÀNH CÔNG PC - Landing Page
 
-A distinctive, SEO-optimized landing page for Thành Công Gear gaming PCs built with Astro.
+A distinctive, SEO-optimized landing page for THÀNH CÔNG PC gaming PCs built with Astro.
 
 ## ✨ Design Concept: Neo-Vietnamese Industrial Luxe
 
@@ -121,4 +121,4 @@ The static site will be generated in `./dist/` and can be deployed to any static
 
 ## 📄 License
 
-Copyright © 2025 Thành Công Gear. All rights reserved.
+Copyright © 2025 THÀNH CÔNG PC. All rights reserved.
