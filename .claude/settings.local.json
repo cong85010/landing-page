@@ -4,7 +4,8 @@
       "Skill(frontend-design)",
       "Bash(npm create astro@latest:*)",
       "Bash(npm install:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []
