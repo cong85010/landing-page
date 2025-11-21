@@ -1,14 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { componentCategories, presetConfigs, type PresetConfig } from '../data/components';
+import Layout from "../layouts/Layout.astro";
+import {
+  componentCategories,
+  presetConfigs,
+  type PresetConfig,
+} from "../data/components";
 
 // Get preset from URL params
 const url = new URL(Astro.request.url);
-const presetId = url.searchParams.get('preset') || 'warrior';
-const preset = presetConfigs.find(p => p.id === presetId) || presetConfigs[0];
+const presetId = url.searchParams.get("preset") || "warrior";
+const preset = presetConfigs.find((p) => p.id === presetId) || presetConfigs[0];
 
-const pageTitle = 'PC Customizer - THÀNH CÔNG PC';
-const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với công cụ tùy chỉnh của chúng tôi';
+const pageTitle = "PC Customizer - THÀNH CÔNG PC";
+const pageDescription =
+  "Thiết kế PC gaming hoàn hảo theo ý bạn với công cụ tùy chỉnh của chúng tôi";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -18,7 +23,12 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
       <div class="header-container">
         <a href="/#arsenal" class="back-btn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path
+              d="M19 12H5M5 12L12 19M5 12L12 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
           <span>Quay lại Arsenal</span>
         </a>
@@ -36,70 +46,100 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
         <div class="preset-selector">
           <h3>Preset Templates</h3>
           <div class="preset-buttons">
-            {presetConfigs.map((p) => (
-              <button
-                class={`preset-btn ${p.id === preset.id ? 'active' : ''}`}
-                data-preset={p.id}
-              >
-                {p.name}
-              </button>
-            ))}
+            {
+              presetConfigs.map((p) => (
+                <button
+                  class={`preset-btn ${p.id === preset.id ? "active" : ""}`}
+                  data-preset={p.id}
+                >
+                  {p.name}
+                </button>
+              ))
+            }
           </div>
         </div>
 
         <div class="categories-list" id="categoriesList">
-          {componentCategories.map((category, index) => (
-            <div class="category-section" data-category={category.id}>
-              <button class="category-header">
-                <div class="category-info">
-                  <span class="category-number">{String(index + 1).padStart(2, '0')}</span>
-                  <div>
-                    <h3 class="category-name">{category.nameVN}</h3>
-                    <p class="category-subtitle">{category.name}</p>
+          {
+            componentCategories.map((category, index) => (
+              <div class="category-section" data-category={category.id}>
+                <button class="category-header">
+                  <div class="category-info">
+                    <span class="category-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 class="category-name">{category.nameVN}</h3>
+                      <p class="category-subtitle">{category.name}</p>
+                    </div>
+                  </div>
+                  <div class="category-toggle">
+                    {category.required && (
+                      <span class="required-badge">BẮT BUỘC</span>
+                    )}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      class="chevron"
+                    >
+                      <path
+                        d="M6 9L12 15L18 9"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </button>
+
+                <div class="category-content">
+                  <div class="components-grid">
+                    {category.options.map((component) => (
+                      <div
+                        class="component-card"
+                        data-component-id={component.id}
+                        data-category={category.id}
+                      >
+                        <div class="component-header">
+                          {component.brand && (
+                            <span class="component-brand">
+                              {component.brand}
+                            </span>
+                          )}
+                          {component.performance && (
+                            <div class="performance-bars">
+                              {Array.from({ length: 10 }).map((_, i) => (
+                                <div
+                                  class={`bar ${i < component.performance! ? "active" : ""}`}
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                        <h4 class="component-name">{component.name}</h4>
+                        {component.description && (
+                          <p class="component-desc">{component.description}</p>
+                        )}
+                        <div class="component-footer">
+                          <span class="component-price">
+                            {component.price.toLocaleString("vi-VN")}₫
+                          </span>
+                          {component.power && (
+                            <span class="component-power">
+                              {component.power}W
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <div class="category-toggle">
-                  {category.required && <span class="required-badge">BẮT BUỘC</span>}
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="chevron">
-                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-              </button>
-
-              <div class="category-content">
-                <div class="components-grid">
-                  {category.options.map((component) => (
-                    <div
-                      class="component-card"
-                      data-component-id={component.id}
-                      data-category={category.id}
-                    >
-                      <div class="component-header">
-                        {component.brand && <span class="component-brand">{component.brand}</span>}
-                        {component.performance && (
-                          <div class="performance-bars">
-                            {Array.from({ length: 10 }).map((_, i) => (
-                              <div class={`bar ${i < component.performance! ? 'active' : ''}`}></div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <h4 class="component-name">{component.name}</h4>
-                      {component.description && (
-                        <p class="component-desc">{component.description}</p>
-                      )}
-                      <div class="component-footer">
-                        <span class="component-price">{component.price.toLocaleString('vi-VN')}₫</span>
-                        {component.power && (
-                          <span class="component-power">{component.power}W</span>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
 
@@ -110,8 +150,17 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
             <span>Cấu Hình Của Bạn</span>
             <button class="reset-btn" id="resetBtn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.46667 21 7.20333 19.9167 5.61 18.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M3 17V12H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.46667 21 7.20333 19.9167 5.61 18.2"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"></path>
+                <path
+                  d="M3 17V12H8"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
               </svg>
               Reset
             </button>
@@ -136,7 +185,9 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
             <div class="power-bar">
               <div class="power-fill" id="powerFill" style="width: 0%"></div>
             </div>
-            <p class="power-note">Khuyến nghị: <span id="recommendedPSU">650W</span></p>
+            <p class="power-note">
+              Khuyến nghị: <span id="recommendedPSU">650W</span>
+            </p>
           </div>
 
           <div class="price-summary">
@@ -153,15 +204,32 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
             <button class="submit-btn" id="submitBtn">
               <span>Gửi Yêu Cầu Báo Giá</span>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L12 19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
               </svg>
             </button>
             <button class="share-btn" id="shareBtn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="2"/>
+                <path
+                  d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z"
+                  stroke="currentColor"
+                  stroke-width="2"></path>
+                <path
+                  d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z"
+                  stroke="currentColor"
+                  stroke-width="2"></path>
+                <path
+                  d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z"
+                  stroke="currentColor"
+                  stroke-width="2"></path>
+                <path
+                  d="M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49"
+                  stroke="currentColor"
+                  stroke-width="2"></path>
               </svg>
               Chia Sẻ Cấu Hình
             </button>
@@ -176,32 +244,60 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
       <div class="modal-content">
         <button class="modal-close" id="modalClose">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path
+              d="M18 6L6 18M6 6L18 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"></path>
           </svg>
         </button>
 
         <h2 class="modal-title">Gửi Yêu Cầu Báo Giá</h2>
-        <p class="modal-subtitle">Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ</p>
+        <p class="modal-subtitle">
+          Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ
+        </p>
 
         <form class="contact-form" id="contactForm">
           <div class="form-group">
             <label for="fullName">Họ và Tên *</label>
-            <input type="text" id="fullName" name="fullName" required placeholder="Nguyễn Văn A" />
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              required
+              placeholder="Nguyễn Văn A"
+            />
           </div>
 
           <div class="form-group">
             <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required placeholder="email@example.com" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="email@example.com"
+            />
           </div>
 
           <div class="form-group">
             <label for="phone">Số Điện Thoại *</label>
-            <input type="tel" id="phone" name="phone" required placeholder="0123456789" />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              placeholder="0123456789"
+            />
           </div>
 
           <div class="form-group">
             <label for="message">Yêu Cầu Đặc Biệt</label>
-            <textarea id="message" name="message" rows="4" placeholder="Ghi chú thêm về cấu hình..."></textarea>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="Ghi chú thêm về cấu hình..."></textarea>
           </div>
 
           <div class="config-summary-modal" id="configSummaryModal">
@@ -211,7 +307,12 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
           <button type="submit" class="form-submit-btn">
             <span>Gửi Yêu Cầu</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path
+                d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
             </svg>
           </button>
         </form>
@@ -220,15 +321,23 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
   </div>
 
   <script>
-    import { componentCategories, presetConfigs, calculateTotalPrice, calculateTotalPower, getComponentById, formatPrice, type ConfigItem } from '../data/components';
+    import {
+      componentCategories,
+      presetConfigs,
+      calculateTotalPrice,
+      calculateTotalPower,
+      getComponentById,
+      formatPrice,
+      type ConfigItem,
+    } from "../data/components";
 
     // State management
     let currentConfig: Record<string, ConfigItem | ConfigItem[]> = {};
-    let currentPreset = '{preset.id}';
+    let currentPreset = "{preset.id}";
 
     // Initialize with preset
     function loadPreset(presetId: string) {
-      const preset = presetConfigs.find(p => p.id === presetId);
+      const preset = presetConfigs.find((p) => p.id === presetId);
       if (!preset) return;
 
       currentPreset = presetId;
@@ -249,16 +358,16 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
 
     // Update selected components list
     function updateSelectedComponents() {
-      const container = document.getElementById('selectedComponents');
+      const container = document.getElementById("selectedComponents");
       if (!container) return;
 
-      let html = '';
-      componentCategories.forEach(category => {
+      let html = "";
+      componentCategories.forEach((category) => {
         const selection = currentConfig[category.id];
         if (!selection) return;
 
         // Add category title
-        let categoryItems = '';
+        let categoryItems = "";
 
         if (Array.isArray(selection)) {
           selection.forEach((item: ConfigItem, index: number) => {
@@ -269,18 +378,8 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
                 <div class="spec-item-card">
                   <div class="spec-card-header">
                     <span class="spec-name">${comp.name}</span>
-                    <button class="remove-btn" data-category="${category.id}" data-index="${index}" title="Xóa">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"/>
-                      </svg>
-                    </button>
                   </div>
                   <div class="spec-card-footer">
-                    <div class="spec-qty-controls">
-                      <button class="qty-change-btn" data-category="${category.id}" data-index="${index}" data-action="decrease">-</button>
-                      <span class="qty-display">Qty: ${item.quantity}</span>
-                      <button class="qty-change-btn" data-category="${category.id}" data-index="${index}" data-action="increase">+</button>
-                    </div>
                     <span class="spec-price">${formatPrice(itemPrice)}</span>
                   </div>
                 </div>
@@ -295,18 +394,8 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
               <div class="spec-item-card">
                 <div class="spec-card-header">
                   <span class="spec-name">${comp.name}</span>
-                  <button class="remove-btn" data-category="${category.id}" title="Xóa">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                  </button>
                 </div>
                 <div class="spec-card-footer">
-                  <div class="spec-qty-controls">
-                    <button class="qty-change-btn" data-category="${category.id}" data-action="decrease">-</button>
-                    <span class="qty-display">Qty: ${selection.quantity}</span>
-                    <button class="qty-change-btn" data-category="${category.id}" data-action="increase">+</button>
-                  </div>
                   <span class="spec-price">${formatPrice(itemPrice)}</span>
                 </div>
               </div>
@@ -333,8 +422,8 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
 
     // Handle quantity changes in selected list
     function attachQuantityChangeListeners() {
-      document.querySelectorAll('.qty-change-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+      document.querySelectorAll(".qty-change-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           const target = e.currentTarget as HTMLElement;
           const categoryId = target.dataset.category;
           const action = target.dataset.action;
@@ -345,19 +434,19 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
           const selection = currentConfig[categoryId];
 
           if (Array.isArray(selection)) {
-            const index = parseInt(indexStr || '0');
+            const index = parseInt(indexStr || "0");
             const item = selection[index];
             if (item) {
-              if (action === 'increase' && item.quantity < 99) {
+              if (action === "increase" && item.quantity < 99) {
                 item.quantity++;
-              } else if (action === 'decrease' && item.quantity > 1) {
+              } else if (action === "decrease" && item.quantity > 1) {
                 item.quantity--;
               }
             }
           } else if (selection) {
-            if (action === 'increase' && selection.quantity < 99) {
+            if (action === "increase" && selection.quantity < 99) {
               selection.quantity++;
-            } else if (action === 'decrease' && selection.quantity > 1) {
+            } else if (action === "decrease" && selection.quantity > 1) {
               selection.quantity--;
             }
           }
@@ -370,8 +459,8 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
 
     // Handle remove buttons
     function attachRemoveListeners() {
-      document.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+      document.querySelectorAll(".remove-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           const target = e.currentTarget as HTMLElement;
           const categoryId = target.dataset.category;
           const indexStr = target.dataset.index;
@@ -399,7 +488,7 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
     // Update price breakdown
     function updatePriceBreakdown() {
       const total = calculateTotalPrice(currentConfig);
-      const totalEl = document.getElementById('totalPrice');
+      const totalEl = document.getElementById("totalPrice");
       if (totalEl) {
         totalEl.textContent = formatPrice(total);
       }
@@ -408,24 +497,24 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
     // Update power consumption
     function updatePowerConsumption() {
       const totalWatts = calculateTotalPower(currentConfig);
-      const powerEl = document.getElementById('totalPower');
-      const fillEl = document.getElementById('powerFill');
-      const recEl = document.getElementById('recommendedPSU');
+      const powerEl = document.getElementById("totalPower");
+      const fillEl = document.getElementById("powerFill");
+      const recEl = document.getElementById("recommendedPSU");
 
-      if (powerEl) powerEl.textContent = totalWatts + 'W';
+      if (powerEl) powerEl.textContent = totalWatts + "W";
 
-      const recommendedWatts = Math.ceil(totalWatts * 1.3 / 100) * 100;
-      if (recEl) recEl.textContent = recommendedWatts + 'W';
+      const recommendedWatts = Math.ceil((totalWatts * 1.3) / 100) * 100;
+      if (recEl) recEl.textContent = recommendedWatts + "W";
 
       if (fillEl) {
         const percentage = Math.min((totalWatts / recommendedWatts) * 100, 100);
-        fillEl.style.width = percentage + '%';
+        fillEl.style.width = percentage + "%";
       }
     }
 
     // Update component selection UI
     function updateComponentSelection() {
-      document.querySelectorAll('.component-card').forEach(card => {
+      document.querySelectorAll(".component-card").forEach((card) => {
         const cardEl = card as HTMLElement;
         const componentId = cardEl.dataset.componentId;
         const categoryId = cardEl.dataset.category;
@@ -437,7 +526,9 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
         let quantity = 1;
 
         if (Array.isArray(selection)) {
-          const item = selection.find((i: ConfigItem) => i.componentId === componentId);
+          const item = selection.find(
+            (i: ConfigItem) => i.componentId === componentId
+          );
           isSelected = !!item;
           quantity = item?.quantity || 1;
         } else if (selection) {
@@ -446,22 +537,26 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
         }
 
         if (isSelected) {
-          cardEl.classList.add('selected');
+          cardEl.classList.add("selected");
 
           // Update quantity display for all components
-          const qtyControl = cardEl.querySelector('.quantity-control') as HTMLElement;
-          const qtyValue = cardEl.querySelector('.qty-value');
+          const qtyControl = cardEl.querySelector(
+            ".quantity-control"
+          ) as HTMLElement;
+          const qtyValue = cardEl.querySelector(".qty-value");
           if (qtyControl) {
-            qtyControl.style.display = 'flex';
+            qtyControl.style.display = "flex";
             if (qtyValue) qtyValue.textContent = quantity.toString();
           }
         } else {
-          cardEl.classList.remove('selected');
+          cardEl.classList.remove("selected");
 
           // Hide quantity control
-          const qtyControl = cardEl.querySelector('.quantity-control') as HTMLElement;
+          const qtyControl = cardEl.querySelector(
+            ".quantity-control"
+          ) as HTMLElement;
           if (qtyControl) {
-            qtyControl.style.display = 'none';
+            qtyControl.style.display = "none";
           }
         }
       });
@@ -469,9 +564,9 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
 
     // Update preview image
     function updatePreviewImage() {
-      const preset = presetConfigs.find(p => p.id === currentPreset);
-      const imgEl = document.getElementById('previewImage') as HTMLImageElement;
-      const badgeEl = document.getElementById('previewBadge');
+      const preset = presetConfigs.find((p) => p.id === currentPreset);
+      const imgEl = document.getElementById("previewImage") as HTMLImageElement;
+      const badgeEl = document.getElementById("previewBadge");
 
       if (imgEl && preset) {
         imgEl.src = `/${preset.theme}.svg`;
@@ -484,49 +579,51 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
     // Update URL with current config
     function updateURL() {
       const params = new URLSearchParams();
-      params.set('preset', currentPreset);
+      params.set("preset", currentPreset);
 
       Object.entries(currentConfig).forEach(([key, value]) => {
         if (Array.isArray(value)) {
-          params.set(key, value.join(','));
+          params.set(key, value.join(","));
         } else {
           params.set(key, value);
         }
       });
 
-      window.history.replaceState({}, '', `?${params.toString()}`);
+      window.history.replaceState({}, "", `?${params.toString()}`);
     }
 
     // Event Listeners
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
       // Load initial preset
       loadPreset(currentPreset);
 
       // Preset buttons
-      document.querySelectorAll('.preset-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+      document.querySelectorAll(".preset-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           const presetId = (e.currentTarget as HTMLElement).dataset.preset;
           if (presetId) {
-            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-            (e.currentTarget as HTMLElement).classList.add('active');
+            document
+              .querySelectorAll(".preset-btn")
+              .forEach((b) => b.classList.remove("active"));
+            (e.currentTarget as HTMLElement).classList.add("active");
             loadPreset(presetId);
           }
         });
       });
 
       // Category accordion
-      document.querySelectorAll('.category-header').forEach(header => {
-        header.addEventListener('click', () => {
+      document.querySelectorAll(".category-header").forEach((header) => {
+        header.addEventListener("click", () => {
           const section = header.parentElement;
-          section?.classList.toggle('active');
+          section?.classList.toggle("active");
         });
       });
 
       // Component selection
-      document.querySelectorAll('.component-card').forEach(card => {
-        card.addEventListener('click', (e) => {
+      document.querySelectorAll(".component-card").forEach((card) => {
+        card.addEventListener("click", (e) => {
           // Don't trigger if clicking quantity buttons
-          if ((e.target as HTMLElement).closest('.quantity-control')) return;
+          if ((e.target as HTMLElement).closest(".quantity-control")) return;
 
           const cardEl = card as HTMLElement;
           const componentId = cardEl.dataset.componentId;
@@ -534,13 +631,15 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
 
           if (!componentId || !categoryId) return;
 
-          const category = componentCategories.find(c => c.id === categoryId);
+          const category = componentCategories.find((c) => c.id === categoryId);
           if (!category) return;
 
-          if (category.id === 'extras') {
+          if (category.id === "extras") {
             // Multiple selection for extras with quantities
             const current = (currentConfig[categoryId] as ConfigItem[]) || [];
-            const index = current.findIndex(i => i.componentId === componentId);
+            const index = current.findIndex(
+              (i) => i.componentId === componentId
+            );
 
             if (index > -1) {
               current.splice(index, 1);
@@ -570,22 +669,22 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
       });
 
       // Quantity controls on component cards
-      document.querySelectorAll('.quantity-control').forEach(qtyControl => {
-        const card = qtyControl.closest('.component-card') as HTMLElement;
+      document.querySelectorAll(".quantity-control").forEach((qtyControl) => {
+        const card = qtyControl.closest(".component-card") as HTMLElement;
         const componentId = card?.dataset.componentId;
         const categoryId = card?.dataset.category;
 
         if (!componentId || !categoryId) return;
 
-        const minusBtn = qtyControl.querySelector('.qty-minus');
-        const plusBtn = qtyControl.querySelector('.qty-plus');
+        const minusBtn = qtyControl.querySelector(".qty-minus");
+        const plusBtn = qtyControl.querySelector(".qty-plus");
 
-        minusBtn?.addEventListener('click', (e) => {
+        minusBtn?.addEventListener("click", (e) => {
           e.stopPropagation();
           const selection = currentConfig[categoryId];
 
           if (Array.isArray(selection)) {
-            const item = selection.find(i => i.componentId === componentId);
+            const item = selection.find((i) => i.componentId === componentId);
             if (item && item.quantity > 1) {
               item.quantity--;
               updateUI();
@@ -598,12 +697,12 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
           }
         });
 
-        plusBtn?.addEventListener('click', (e) => {
+        plusBtn?.addEventListener("click", (e) => {
           e.stopPropagation();
           const selection = currentConfig[categoryId];
 
           if (Array.isArray(selection)) {
-            const item = selection.find(i => i.componentId === componentId);
+            const item = selection.find((i) => i.componentId === componentId);
             if (item && item.quantity < 99) {
               item.quantity++;
               updateUI();
@@ -618,56 +717,60 @@ const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với 
       });
 
       // Reset button
-      document.getElementById('resetBtn')?.addEventListener('click', () => {
+      document.getElementById("resetBtn")?.addEventListener("click", () => {
         loadPreset(currentPreset);
       });
 
       // Share button
-      document.getElementById('shareBtn')?.addEventListener('click', () => {
+      document.getElementById("shareBtn")?.addEventListener("click", () => {
         const url = window.location.href;
         navigator.clipboard.writeText(url).then(() => {
-          alert('Đã copy link cấu hình vào clipboard!');
+          alert("Đã copy link cấu hình vào clipboard!");
         });
       });
 
       // Submit button
-      document.getElementById('submitBtn')?.addEventListener('click', () => {
-        const modal = document.getElementById('submitModal');
-        modal?.classList.add('active');
+      document.getElementById("submitBtn")?.addEventListener("click", () => {
+        const modal = document.getElementById("submitModal");
+        modal?.classList.add("active");
 
         // Populate config summary in modal
-        const summaryEl = document.getElementById('configSummaryModal');
+        const summaryEl = document.getElementById("configSummaryModal");
         if (summaryEl) {
-          summaryEl.innerHTML = document.getElementById('selectedComponents')?.innerHTML || '';
+          summaryEl.innerHTML =
+            document.getElementById("selectedComponents")?.innerHTML || "";
         }
       });
 
       // Modal close
-      document.getElementById('modalClose')?.addEventListener('click', () => {
-        document.getElementById('submitModal')?.classList.remove('active');
+      document.getElementById("modalClose")?.addEventListener("click", () => {
+        document.getElementById("submitModal")?.classList.remove("active");
       });
 
-      document.getElementById('modalOverlay')?.addEventListener('click', () => {
-        document.getElementById('submitModal')?.classList.remove('active');
+      document.getElementById("modalOverlay")?.addEventListener("click", () => {
+        document.getElementById("submitModal")?.classList.remove("active");
       });
 
       // Form submission
-      document.getElementById('contactForm')?.addEventListener('submit', (e) => {
-        e.preventDefault();
+      document
+        .getElementById("contactForm")
+        ?.addEventListener("submit", (e) => {
+          e.preventDefault();
 
-        const formData = new FormData(e.target as HTMLFormElement);
-        const data = Object.fromEntries(formData);
+          const formData = new FormData(e.target as HTMLFormElement);
+          const data = Object.fromEntries(formData);
 
-        // Add configuration to form data
-        data.configuration = JSON.stringify(currentConfig);
-        data.totalPrice = document.getElementById('totalPrice')?.textContent || '';
+          // Add configuration to form data
+          data.configuration = JSON.stringify(currentConfig);
+          data.totalPrice =
+            document.getElementById("totalPrice")?.textContent || "";
 
-        console.log('Form submitted:', data);
+          console.log("Form submitted:", data);
 
-        // Here you would send to your backend
-        alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm nhất.');
-        document.getElementById('submitModal')?.classList.remove('active');
-      });
+          // Here you would send to your backend
+          alert("Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm nhất.");
+          document.getElementById("submitModal")?.classList.remove("active");
+        });
     });
   </script>
 
