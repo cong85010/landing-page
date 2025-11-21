@@ -1,0 +1,50 @@
+---
+// Reusable Badge component
+export type BadgeVariant = "primary" | "success" | "warning" | "gold";
+
+interface Props {
+  variant?: BadgeVariant;
+  class?: string;
+}
+
+const { variant = "primary", class: className = "" } = Astro.props;
+---
+
+<span class={`badge badge-${variant} ${className}`}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-block;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+
+  .badge-primary {
+    background: var(--red-primary);
+    color: var(--white);
+  }
+
+  .badge-success {
+    background: rgba(74, 222, 128, 0.1);
+    color: #4ade80;
+    border: 1px solid #4ade80;
+  }
+
+  .badge-warning {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+
+  .badge-gold {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+// Reusable Star Rating component
+interface Props {
+  rating: number;
+  maxStars?: number;
+  size?: number;
+  showText?: boolean;
+  reviews?: number;
+}
+
+const {
+  rating,
+  maxStars = 5,
+  size = 20,
+  showText = false,
+  reviews
+} = Astro.props;
+---
+
+<div class="star-rating">
+  <div class="stars">
+    {
+      Array.from({ length: maxStars }, (_, i) => (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill={i < Math.floor(rating) ? "#FFD700" : "none"}
+          stroke="#FFD700"
+          stroke-width="2"
+        >
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+        </svg>
+      ))
+    }
+  </div>
+  {showText && (
+    <span class="rating-text">
+      {rating} {reviews !== undefined && `(${reviews} reviews)`}
+    </span>
+  )}
+</div>
+
+<style>
+  .star-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .stars {
+    display: flex;
+    gap: 4px;
+  }
+
+  .rating-text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--silver);
+  }
+</style>

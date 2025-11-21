@@ -1,0 +1,40 @@
+---
+// Reusable Icon component
+type IconName = "arrow-left" | "arrow-right" | "chevron-left" | "chevron-right" | "star" | "check" | "eye" | "link";
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+  stroke?: string;
+  fill?: string;
+}
+
+const {
+  name,
+  size = 24,
+  class: className = "",
+  stroke = "currentColor",
+  fill = "none"
+} = Astro.props;
+
+const icons: Record<IconName, string> = {
+  "arrow-left": `<path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+  "arrow-right": `<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+  "chevron-left": `<path d="M15 18L9 12L15 6" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+  "chevron-right": `<path d="M9 18L15 12L9 6" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+  "star": `<path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="${stroke}" stroke-width="2"/>`,
+  "check": `<path d="M20 6L9 17L4 12" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+  "eye": `<path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="${stroke}" stroke-width="2"/><path d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5Z" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+  "link": `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={fill}
+  class={className}
+  set:html={icons[name]}
+/>

@@ -1,0 +1,83 @@
+---
+// Reusable Section Header component
+interface Props {
+  number?: string;
+  titleVN: string;
+  titleEN: string;
+  subtitle?: string;
+  class?: string;
+}
+
+const {
+  number,
+  titleVN,
+  titleEN,
+  subtitle,
+  class: className = ""
+} = Astro.props;
+---
+
+<div class={`section-header ${className}`}>
+  {number && <div class="section-number">{number}</div>}
+  <h2 class="section-title">
+    <span class="title-vn">{titleVN}</span>
+    <span class="title-en">{titleEN}</span>
+  </h2>
+  {subtitle && <p class="section-subtitle">{subtitle}</p>}
+</div>
+
+<style>
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+  }
+
+  .section-number {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-display);
+    font-size: clamp(100px, 20vw, 150px);
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--steel);
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .section-title {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .title-vn {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 8vw, 60px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1px;
+  }
+
+  .title-en {
+    font-family: var(--font-mono);
+    font-size: clamp(14px, 2vw, 16px);
+    color: var(--gold);
+    letter-spacing: 4px;
+    opacity: 0.8;
+  }
+
+  .section-subtitle {
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--silver);
+    font-family: var(--font-body);
+    position: relative;
+    z-index: 10;
+  }
+</style>

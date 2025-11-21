@@ -1,0 +1,127 @@
+---
+// Reusable Button component
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+export type ButtonSize = "sm" | "md" | "lg";
+
+interface Props {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  href?: string;
+  class?: string;
+  target?: string;
+  rel?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  href,
+  class: className = "",
+  target,
+  rel,
+  type = "button",
+  disabled = false
+} = Astro.props;
+
+const Tag = href ? "a" : "button";
+
+const baseClass = "btn";
+const variantClass = `btn-${variant}`;
+const sizeClass = `btn-${size}`;
+const classes = [baseClass, variantClass, sizeClass, className].filter(Boolean).join(" ");
+---
+
+<Tag
+  class={classes}
+  href={href}
+  target={target}
+  rel={rel}
+  type={!href ? type : undefined}
+  disabled={disabled}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    border: 2px solid transparent;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Sizes */
+  .btn-sm {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .btn-md {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .btn-lg {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+
+  /* Variants */
+  .btn-primary {
+    background: var(--red-primary);
+    color: var(--white);
+    border-color: var(--red-primary);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--red-hover);
+    border-color: var(--red-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(200, 16, 46, 0.3);
+  }
+
+  .btn-secondary {
+    background: var(--charcoal);
+    color: var(--white);
+    border-color: var(--steel);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    border-color: var(--red-primary);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .btn-outline:hover:not(:disabled) {
+    background: var(--red-primary);
+    border-color: var(--red-primary);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--silver);
+    border-color: transparent;
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    color: var(--gold);
+  }
+</style>

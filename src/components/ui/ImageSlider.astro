@@ -1,0 +1,299 @@
+---
+// Reusable Image Slider component
+import Icon from "./Icon.astro";
+
+interface Props {
+  images: { src: string; alt: string }[];
+  badge?: string;
+  thumbsPerView?: number;
+}
+
+const { images, badge, thumbsPerView = 4 } = Astro.props;
+---
+
+<div class="image-slider-wrapper">
+  <!-- Main Image Slider -->
+  <div class="main-slider">
+    <button class="main-slider-btn main-prev-btn" aria-label="Previous">
+      <Icon name="chevron-left" size={24} />
+    </button>
+    <div class="main-slider-container">
+      <div class="main-slider-track">
+        {
+          images.map((img, index) => (
+            <div class="main-slide" data-index={index}>
+              <img src={img.src} alt={img.alt} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <button class="main-slider-btn main-next-btn" aria-label="Next">
+      <Icon name="chevron-right" size={24} />
+    </button>
+    {badge && <div class="image-badge">{badge}</div>}
+  </div>
+
+  <!-- Thumbnail Slider -->
+  <div class="thumbnail-slider">
+    <button class="thumb-slider-btn thumb-prev-btn" aria-label="Previous thumbnails">
+      <Icon name="chevron-left" size={16} />
+    </button>
+    <div class="thumbnail-container">
+      <div class="thumbnail-track">
+        {
+          images.map((img, index) => (
+            <img
+              src={img.src}
+              alt={img.alt}
+              class={`thumbnail ${index === 0 ? "active" : ""}`}
+              data-index={index}
+            />
+          ))
+        }
+      </div>
+    </div>
+    <button class="thumb-slider-btn thumb-next-btn" aria-label="Next thumbnails">
+      <Icon name="chevron-right" size={16} />
+    </button>
+  </div>
+</div>
+
+<style>
+  .image-slider-wrapper {
+    width: 100%;
+  }
+
+  /* Main Image Slider */
+  .main-slider {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: var(--charcoal);
+    border: 2px solid var(--steel);
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .main-slider-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .main-slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .main-slide {
+    min-width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+  }
+
+  .main-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .main-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--steel);
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+
+  .main-slider-btn:hover {
+    background: var(--red-primary);
+    border-color: var(--red-primary);
+  }
+
+  .main-prev-btn {
+    left: 15px;
+  }
+
+  .main-next-btn {
+    right: 15px;
+  }
+
+  .image-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background: var(--red-primary);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    z-index: 10;
+  }
+
+  /* Thumbnail Slider */
+  .thumbnail-slider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .thumbnail-container {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .thumbnail-track {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .thumbnail {
+    min-width: calc(25% - 8px);
+    width: calc(25% - 8px);
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid var(--steel);
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+
+  .thumbnail:hover,
+  .thumbnail.active {
+    border-color: var(--red-primary);
+  }
+
+  .thumb-slider-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--steel);
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+
+  .thumb-slider-btn:hover {
+    background: var(--red-primary);
+    border-color: var(--red-primary);
+  }
+
+  @media (max-width: 768px) {
+    .main-slider {
+      height: 300px;
+    }
+
+    .main-slider-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    .main-prev-btn {
+      left: 10px;
+    }
+
+    .main-next-btn {
+      right: 10px;
+    }
+
+    .thumbnail {
+      min-width: calc(50% - 5px);
+      width: calc(50% - 5px);
+      height: 80px;
+    }
+
+    .thumb-slider-btn {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .main-slider {
+      height: 250px;
+    }
+
+    .thumbnail {
+      min-width: calc(50% - 5px);
+      width: calc(50% - 5px);
+      height: 70px;
+    }
+  }
+</style>
+
+<script define:vars={{ thumbsPerView }}>
+  // Image slider functionality
+  const mainTrack = document.querySelector(".main-slider-track");
+  const mainPrevBtn = document.querySelector(".main-prev-btn");
+  const mainNextBtn = document.querySelector(".main-next-btn");
+  const mainSlides = document.querySelectorAll(".main-slide");
+
+  const thumbTrack = document.querySelector(".thumbnail-track");
+  const thumbPrevBtn = document.querySelector(".thumb-prev-btn");
+  const thumbNextBtn = document.querySelector(".thumb-next-btn");
+  const thumbnails = document.querySelectorAll(".thumbnail");
+
+  const totalImages = mainSlides.length;
+  const totalThumbPages = Math.ceil(totalImages / thumbsPerView);
+  let currentIndex = 0;
+  let currentThumbPage = 0;
+
+  function goToMainSlide(index) {
+    if (index < 0) index = totalImages - 1;
+    if (index >= totalImages) index = 0;
+
+    currentIndex = index;
+    mainTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    thumbnails.forEach((thumb, i) => {
+      thumb.classList.toggle("active", i === currentIndex);
+    });
+
+    const newThumbPage = Math.floor(currentIndex / thumbsPerView);
+    if (newThumbPage !== currentThumbPage) {
+      goToThumbPage(newThumbPage);
+    }
+  }
+
+  function goToThumbPage(page) {
+    if (page < 0) page = 0;
+    if (page >= totalThumbPages) page = totalThumbPages - 1;
+
+    currentThumbPage = page;
+    const thumbWidth = 25;
+    const gapOffset = currentThumbPage * thumbsPerView * 10;
+    const offset = currentThumbPage * thumbsPerView * thumbWidth;
+    thumbTrack.style.transform = `translateX(calc(-${offset}% - ${gapOffset}px))`;
+  }
+
+  mainPrevBtn?.addEventListener("click", () => goToMainSlide(currentIndex - 1));
+  mainNextBtn?.addEventListener("click", () => goToMainSlide(currentIndex + 1));
+  thumbPrevBtn?.addEventListener("click", () => goToThumbPage(currentThumbPage - 1));
+  thumbNextBtn?.addEventListener("click", () => goToThumbPage(currentThumbPage + 1));
+
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener("click", () => goToMainSlide(index));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") goToMainSlide(currentIndex - 1);
+    if (e.key === "ArrowRight") goToMainSlide(currentIndex + 1);
+  });
+</script>
