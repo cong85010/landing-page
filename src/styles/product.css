@@ -1,0 +1,218 @@
+/* Product Page Styles */
+@import './slider.css';
+@import './cards.css';
+
+.product-page {
+  background: var(--black);
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+.back-nav {
+  padding: 20px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--silver);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.back-btn:hover {
+  color: var(--gold);
+  transform: translateX(-5px);
+}
+
+.product-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* Product Hero */
+.product-hero { padding: 40px 0 80px; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.product-gallery {
+  position: sticky;
+  top: 120px;
+}
+
+/* Product Info */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.product-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.product-name {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 48px);
+  color: var(--white);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.product-tagline {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--silver);
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+/* Pricing */
+.pricing-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  border-top: 1px solid var(--steel);
+  border-bottom: 1px solid var(--steel);
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.product-price {
+  font-family: var(--font-display);
+  font-size: 42px;
+  color: var(--red-primary);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.original-price {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--silver);
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.discount-badge {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--red-primary);
+  padding: 8px 16px;
+  letter-spacing: 2px;
+  border-radius: 4px;
+}
+
+.product-description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--silver);
+}
+
+/* Buy Section */
+.buy-section h3,
+.features-list h3 {
+  font-family: var(--font-title);
+  font-size: 20px;
+  color: var(--white);
+  margin-bottom: 15px;
+}
+
+.buy-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.buy-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 25px;
+  background: rgba(200, 16, 46, 0.1);
+  border: 2px solid var(--red-primary);
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  transition: var(--transition);
+  justify-content: center;
+}
+
+.buy-btn:hover {
+  background: var(--red-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(200, 16, 46, 0.3);
+}
+
+.buy-icon { font-size: 20px; }
+
+/* Features List */
+.features-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--silver);
+  font-size: 16px;
+}
+
+/* Sections */
+.specifications {
+  padding: 80px 0;
+  background: linear-gradient(180deg, rgba(26, 26, 26, 0.5), transparent);
+}
+
+.related-products { padding: 80px 0; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .product-grid { grid-template-columns: 1fr; gap: 40px; }
+  .product-gallery { position: relative; top: 0; }
+  .buy-links { grid-template-columns: 1fr; }
+  .product-price { font-size: 36px; }
+  .original-price { font-size: 22px; }
+}
+
+@media (max-width: 768px) {
+  .product-page { padding-top: 80px; }
+  .product-meta { gap: 10px; }
+  .product-price { font-size: 32px; }
+  .original-price { font-size: 20px; }
+  .pricing-section { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .discount-badge { font-size: 12px; padding: 6px 12px; }
+  .buy-btn { font-size: 13px; padding: 12px 20px; }
+}
+
+@media (max-width: 480px) {
+  .product-price { font-size: 28px; }
+  .original-price { font-size: 18px; }
+}
