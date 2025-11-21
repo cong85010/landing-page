@@ -1,108 +1,120 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import { showcases } from "../../components/Showcase.astro";
+import Layout from "../../layouts/Layout.astro";
 
 // Product data - must be defined before getStaticPaths
 export const productsData = {
-    id: 1,
-    slug: 'arctic-storm',
-    name: 'iBUYPOWER Y60 Gaming Desktop PC',
-    tagline: 'Hiệu Năng Cực Mạnh: i9-14900F, RTX 4060 Ti & Tản Nước 240mm',
-    price: 1799.99,
-    originalPrice: 2199.99,
-    discount: 18,
-    currency: 'USD',
-    stock: 'In Stock',
-    category: 'Gaming Desktop',
-    brand: 'iBUYPOWER',
-    rating: 4.8,
-    reviews: 127,
-    description: 'Máy tính chơi game iBUYPOWER Y60 (Model Y60BI9N46T04) được trang bị CPU Intel Core i9 thế hệ 14 (14900F) và GPU NVIDIA GeForce RTX 4060 Ti 8GB. Hệ thống sở hữu 32GB RAM DDR5 RGB tốc độ 5200MHz và ổ cứng 1TB NVMe SSD. Đặc biệt, PC này sử dụng hệ thống tản nhiệt nước AIO 240mm và đi kèm Windows 11 Home Advanced.',
-    images: [
-      '/showcase/pc-1.jpg',
-      '/showcase/pc-2.jpg',
-      '/showcase/pc-3.jpg',
-      '/showcase/pc-4.jpg'
-    ],
-    specs: {
-      cpu: {
-        name: 'Intel Core i9-14900F',
-        details: 'Native 24-core processing, Tần số cơ bản 2.0 GHz, Tăng tốc lên đến 5.8 GHz'
-      },
-      gpu: {
-        name: 'NVIDIA GeForce RTX 4060 Ti',
-        details: '8GB GDDR6X VRAM, Driven by 8GB of dedicated video memory'
-      },
-      ram: {
-        name: '32GB DDR5 RGB RAM',
-        details: '5200MHz, Cấu hình (2) thanh 16GB. Motherboard có thể nâng cấp tối đa 4 thanh RAM.'
-      },
-      storage: {
-        name: '1TB NVMe SSD',
-        details: 'Tốc độ khởi động và tải ứng dụng nhanh'
-      },
-      cooling: {
-        name: 'Tản Nhiệt Nước (Liquid Cooling)',
-        details: 'Hệ thống tản nhiệt CPU nước AIO 240mm kèm theo quạt RGB'
-      },
-      psu: {
-        name: 'Bộ Nguồn (Power Supply)',
-        details: 'Công suất tối đa **600 watts**' 
-      },
-      case: {
-        name: 'iBUYPOWER Y60 Case (Black)',
-        details: 'Thiết kế kính cường lực Panoramic. Kích thước: 18" H x 11.2" W x 18.2" D.'
-      },
-      motherboard: {
-        name: 'Motherboard Model Number',
-        details: '**B760 D5**'
-      }
+  id: 1,
+  slug: "arctic-storm",
+  name: "iBUYPOWER Y60 Gaming Desktop PC",
+  tagline: "Hiệu Năng Cực Mạnh: i9-14900F, RTX 4060 Ti & Tản Nước 240mm",
+  price: 1799.99,
+  originalPrice: 2199.99,
+  discount: 18,
+  currency: "USD",
+  stock: "In Stock",
+  category: "Gaming Desktop",
+  brand: "iBUYPOWER",
+  rating: 4.8,
+  reviews: 127,
+  description:
+    "Máy tính chơi game iBUYPOWER Y60 (Model Y60BI9N46T04) được trang bị CPU Intel Core i9 thế hệ 14 (14900F) và GPU NVIDIA GeForce RTX 4060 Ti 8GB. Hệ thống sở hữu 32GB RAM DDR5 RGB tốc độ 5200MHz và ổ cứng 1TB NVMe SSD. Đặc biệt, PC này sử dụng hệ thống tản nhiệt nước AIO 240mm và đi kèm Windows 11 Home Advanced.",
+  images: [
+    "/showcase/pc-1.jpg",
+    "/showcase/pc-2.jpg",
+    "/showcase/pc-3.jpg",
+    "/showcase/pc-4.jpg",
+  ],
+  specs: {
+    cpu: {
+      name: "Intel Core i9-14900F",
+      details:
+        "Native 24-core processing, Tần số cơ bản 2.0 GHz, Tăng tốc lên đến 5.8 GHz",
     },
-    features: [
-      'Hệ điều hành: Windows 11 Home Advanced (cài đặt sẵn)',
-      'Kết nối: Wi-Fi, Bluetooth, 1x Ethernet',
-      'Cổng xuất hình: **3 x DisplayPort, 1 x HDMI**', 
-      'Cổng kết nối USB: **Tổng cộng 11 cổng**',
-      'Phụ kiện kèm theo: Bàn phím (có dây, RGB) và Chuột (có dây) gaming',
-      'Trọng lượng: 38 pounds',
-      'Bảo hành: 1 năm (Linh kiện & Lao động)',
-      'UPC: 848604049113'
-    ],
-    buyLinks: [
-      {
-        platform: 'Best Buy Product Page',
-        url: 'https://www.bestbuy.com/product/ibuypower-y60-gaming-desktop-pc-intel-core-i9-14900f-nvidia-geforce-rtx-4060-ti-8gb-32gb-ddr5-rgb-ram-1tb-nvme-ssd-black/J3R75JY2R6',
-        icon: '🔗'
-      }
-    ],
-    relatedProducts: null
+    gpu: {
+      name: "NVIDIA GeForce RTX 4060 Ti",
+      details: "8GB GDDR6X VRAM, Driven by 8GB of dedicated video memory",
+    },
+    ram: {
+      name: "32GB DDR5 RGB RAM",
+      details:
+        "5200MHz, Cấu hình (2) thanh 16GB. Motherboard có thể nâng cấp tối đa 4 thanh RAM.",
+    },
+    storage: {
+      name: "1TB NVMe SSD",
+      details: "Tốc độ khởi động và tải ứng dụng nhanh",
+    },
+    cooling: {
+      name: "Tản Nhiệt Nước (Liquid Cooling)",
+      details: "Hệ thống tản nhiệt CPU nước AIO 240mm kèm theo quạt RGB",
+    },
+    psu: {
+      name: "Bộ Nguồn (Power Supply)",
+      details: "Công suất tối đa **600 watts**",
+    },
+    case: {
+      name: "iBUYPOWER Y60 Case (Black)",
+      details:
+        'Thiết kế kính cường lực Panoramic. Kích thước: 18" H x 11.2" W x 18.2" D.',
+    },
+    motherboard: {
+      name: "Motherboard Model Number",
+      details: "**B760 D5**",
+    },
+  },
+  features: [
+    "Hệ điều hành: Windows 11 Home Advanced (cài đặt sẵn)",
+    "Kết nối: Wi-Fi, Bluetooth, 1x Ethernet",
+    "Cổng xuất hình: **3 x DisplayPort, 1 x HDMI**",
+    "Cổng kết nối USB: **Tổng cộng 11 cổng**",
+    "Phụ kiện kèm theo: Bàn phím (có dây, RGB) và Chuột (có dây) gaming",
+    "Trọng lượng: 38 pounds",
+    "Bảo hành: 1 năm (Linh kiện & Lao động)",
+    "UPC: 848604049113",
+  ],
+  buyLinks: [
+    {
+      platform: "Best Buy Product Page",
+      url: "https://www.bestbuy.com/product/ibuypower-y60-gaming-desktop-pc-intel-core-i9-14900f-nvidia-geforce-rtx-4060-ti-8gb-32gb-ddr5-rgb-ram-1tb-nvme-ssd-black/J3R75JY2R6",
+      icon: "🔗",
+    },
+  ],
+  relatedProducts: null,
 };
 
 export function getStaticPaths() {
-  return [
-    {
-      params: { id: productsData.slug },
-      props: { product: productsData }
-    }
-  ];
+  return showcases.map((product) => ({
+    params: { id: product.id },
+    props: { product: productsData },
+  }));
 }
 
-const { product }: { product: any} = Astro.props;
+const { product }: { product: any } = Astro.props;
 
 if (!product) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 const pageTitle = `${product.name} - THÀNH CÔNG PC`;
 const pageDescription = product.description.substring(0, 160);
 ---
 
-<Layout title={pageTitle} description={pageDescription} keywords={`${product.name}, gaming pc, ${product.specs.cpu.name}, ${product.specs.gpu.name}`}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords={`${product.name}, gaming pc, ${product.specs.cpu.name}, ${product.specs.gpu.name}`}
+>
   <div class="product-page">
     <!-- Back Button -->
     <div class="back-nav">
       <a href="/#showcase" class="back-btn">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path
+            d="M19 12H5M5 12L12 19M5 12L12 5"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
         </svg>
         <span>Quay lại Showcase</span>
       </a>
@@ -114,19 +126,58 @@ const pageDescription = product.description.substring(0, 160);
         <div class="product-grid">
           <!-- Image Gallery -->
           <div class="product-gallery">
-            <div class="main-image">
-              <img src={product.images[0]} alt={product.name} id="mainImage" />
+            <!-- Main Image Slider -->
+            <div class="main-slider">
+              <button class="main-slider-btn main-prev-btn" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="main-slider-container">
+                <div class="main-slider-track">
+                  {
+                    showcases.map((item: any, index: number) => (
+                      <div class="main-slide" data-index={index}>
+                        <img src={item.image} alt={`${item.title ?? item.name ?? "Image"} ${index + 1}`} />
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+              <button class="main-slider-btn main-next-btn" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
               <div class="image-badge">{product.category}</div>
             </div>
-            <div class="thumbnail-grid">
-              {product.images.map((img: string, index: number) => (
-                <img
-                  src={img}
-                  alt={`${product.name} ${index + 1}`}
-                  class="thumbnail"
-                  data-index={index}
-                />
-              ))}
+
+            <!-- Thumbnail Slider (max 4 per view) -->
+            <div class="thumbnail-slider">
+              <button class="thumb-slider-btn thumb-prev-btn" aria-label="Previous thumbnails">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="thumbnail-container">
+                <div class="thumbnail-track">
+                  {
+                    showcases.map((item: any, index: number) => (
+                      <img
+                        src={item.image}
+                        alt={`${item.title ?? item.name ?? "Image"} ${index + 1}`}
+                        class={`thumbnail ${index === 0 ? 'active' : ''}`}
+                        data-index={index}
+                      />
+                    ))
+                  }
+                </div>
+              </div>
+              <button class="thumb-slider-btn thumb-next-btn" aria-label="Next thumbnails">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -142,29 +193,51 @@ const pageDescription = product.description.substring(0, 160);
 
             <div class="product-rating">
               <div class="stars">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill={i < Math.floor(product.rating) ? '#FFD700' : 'none'} stroke="#FFD700" stroke-width="2">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                  </svg>
-                ))}
+                {
+                  Array.from({ length: 5 }, (_, i) => (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill={i < Math.floor(product.rating) ? "#FFD700" : "none"}
+                      stroke="#FFD700"
+                      stroke-width="2"
+                    >
+                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                    </svg>
+                  ))
+                }
               </div>
-              <span class="rating-text">{product.rating} ({product.reviews} đánh giá)</span>
+              <span class="rating-text"
+                >{product.rating} ({product.reviews} đánh giá)</span
+              >
             </div>
 
             <div class="pricing-section">
               <div class="price-row">
                 <div class="product-price">
-                  ${product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  ${
+                    product.price.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })
+                  }
                 </div>
-                {product.originalPrice && (
-                  <div class="original-price">
-                    ${product.originalPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                  </div>
-                )}
+                {
+                  product.originalPrice && (
+                    <div class="original-price">
+                      $
+                      {product.originalPrice.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </div>
+                  )
+                }
               </div>
-              {product.discount && (
-                <div class="discount-badge">SAVE {product.discount}%</div>
-              )}
+              {
+                product.discount && (
+                  <div class="discount-badge">SAVE {product.discount}%</div>
+                )
+              }
             </div>
 
             <p class="product-description">{product.description}</p>
@@ -173,12 +246,19 @@ const pageDescription = product.description.substring(0, 160);
             <div class="buy-section">
               <h3>Mua ngay tại:</h3>
               <div class="buy-links">
-                {product.buyLinks.map((link) => (
-                  <a href={link.url} class="buy-btn" target="_blank" rel="noopener">
-                    <span class="buy-icon">{link.icon}</span>
-                    <span>{link.platform}</span>
-                  </a>
-                ))}
+                {
+                  product.buyLinks.map((link) => (
+                    <a
+                      href={link.url}
+                      class="buy-btn"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <span class="buy-icon">{link.icon}</span>
+                      <span>{link.platform}</span>
+                    </a>
+                  ))
+                }
               </div>
             </div>
 
@@ -186,14 +266,27 @@ const pageDescription = product.description.substring(0, 160);
             <div class="features-list">
               <h3>Đặc điểm nổi bật:</h3>
               <ul>
-                {product.features.map(feature => (
-                  <li>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                      <path d="M20 6L9 17L4 12" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>{feature}</span>
-                  </li>
-                ))}
+                {
+                  product.features.map((feature) => (
+                    <li>
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M20 6L9 17L4 12"
+                          stroke="#FFD700"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span>{feature}</span>
+                    </li>
+                  ))
+                }
               </ul>
             </div>
           </div>
@@ -210,21 +303,30 @@ const pageDescription = product.description.substring(0, 160);
         </h2>
 
         <div class="specs-grid">
-          {Object.entries(product.specs).map(([key, spec]) => (
-            <div class="spec-card">
-              <div class="spec-header">
-                <div class="spec-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="4" y="4" width="16" height="16" stroke="#C8102E" stroke-width="2"/>
-                    <circle cx="12" cy="12" r="3" fill="#FFD700"/>
-                  </svg>
+          {
+            Object.entries(product.specs).map(([key, spec]) => (
+              <div class="spec-card">
+                <div class="spec-header">
+                  <div class="spec-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect
+                        x="4"
+                        y="4"
+                        width="16"
+                        height="16"
+                        stroke="#C8102E"
+                        stroke-width="2"
+                      />
+                      <circle cx="12" cy="12" r="3" fill="#FFD700" />
+                    </svg>
+                  </div>
+                  <h3>{key.toUpperCase()}</h3>
                 </div>
-                <h3>{key.toUpperCase()}</h3>
+                <p class="spec-name">{spec.name}</p>
+                <p class="spec-details">{spec.details}</p>
               </div>
-              <p class="spec-name">{spec.name}</p>
-              <p class="spec-details">{spec.details}</p>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </section>
@@ -238,19 +340,21 @@ const pageDescription = product.description.substring(0, 160);
         </h2>
 
         <div class="related-grid">
-          {[productsData].map(related => {
-            if (!related) return null;
-            return (
-              <a href={`/product/${related.id}`} class="related-card">
-                <img src={related.images[0]} alt={related.name} />
-                <div class="related-info">
-                  <h3>{related.name}</h3>
-                  <p class="related-price">{related.price}</p>
-                  <span class="view-link">Xem chi tiết →</span>
-                </div>
-              </a>
-            );
-          })}
+          {
+            [productsData].map((related) => {
+              if (!related) return null;
+              return (
+                <a href={`/product/${related.id}`} class="related-card">
+                  <img src={related.images[0]} alt={related.name} />
+                  <div class="related-info">
+                    <h3>{related.name}</h3>
+                    <p class="related-price">{related.price}</p>
+                    <span class="view-link">Xem chi tiết →</span>
+                  </div>
+                </a>
+              );
+            })
+          }
         </div>
       </div>
     </section>
@@ -309,20 +413,69 @@ const pageDescription = product.description.substring(0, 160);
     top: 120px;
   }
 
-  .main-image {
+  /* Main Image Slider */
+  .main-slider {
     position: relative;
     width: 100%;
-    height: 600px;
+    height: 500px;
     background: var(--charcoal);
     border: 2px solid var(--steel);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     overflow: hidden;
   }
 
-  .main-image img {
+  .main-slider-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .main-slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .main-slide {
+    min-width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+  }
+
+  .main-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .main-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--steel);
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+
+  .main-slider-btn:hover {
+    background: var(--red-primary);
+    border-color: var(--red-primary);
+  }
+
+  .main-prev-btn {
+    left: 15px;
+  }
+
+  .main-next-btn {
+    right: 15px;
   }
 
   .image-badge {
@@ -335,27 +488,60 @@ const pageDescription = product.description.substring(0, 160);
     font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 2px;
+    z-index: 10;
   }
 
-  .thumbnail-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+  /* Thumbnail Slider */
+  .thumbnail-slider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .thumbnail-container {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .thumbnail-track {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.4s ease-in-out;
   }
 
   .thumbnail {
-    width: 100%;
-    height: 120px;
+    min-width: calc(25% - 8px);
+    width: calc(25% - 8px);
+    height: 100px;
     object-fit: cover;
     border: 2px solid var(--steel);
     cursor: pointer;
     transition: var(--transition);
+    flex-shrink: 0;
   }
 
   .thumbnail:hover,
   .thumbnail.active {
     border-color: var(--red-primary);
-    transform: scale(1.05);
+  }
+
+  .thumb-slider-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--steel);
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+
+  .thumb-slider-btn:hover {
+    background: var(--red-primary);
+    border-color: var(--red-primary);
   }
 
   /* Product Info */
@@ -700,17 +886,32 @@ const pageDescription = product.description.substring(0, 160);
       padding-top: 80px;
     }
 
-    .main-image {
-      height: 350px;
+    .main-slider {
+      height: 300px;
     }
 
-    .thumbnail-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+    .main-slider-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    .main-prev-btn {
+      left: 10px;
+    }
+
+    .main-next-btn {
+      right: 10px;
     }
 
     .thumbnail {
+      min-width: calc(50% - 5px);
+      width: calc(50% - 5px);
       height: 80px;
+    }
+
+    .thumb-slider-btn {
+      width: 30px;
+      height: 30px;
     }
 
     .specs-grid {
@@ -774,8 +975,14 @@ const pageDescription = product.description.substring(0, 160);
   }
 
   @media (max-width: 480px) {
-    .thumbnail-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .main-slider {
+      height: 250px;
+    }
+
+    .thumbnail {
+      min-width: calc(50% - 5px);
+      width: calc(50% - 5px);
+      height: 70px;
     }
 
     .product-price {
@@ -789,22 +996,84 @@ const pageDescription = product.description.substring(0, 160);
 </style>
 
 <script>
-  // Image gallery functionality
-  const thumbnails = document.querySelectorAll('.thumbnail');
-  const mainImage = document.getElementById('mainImage') as HTMLImageElement;
+  // Main slider elements
+  const mainTrack = document.querySelector(".main-slider-track") as HTMLElement;
+  const mainPrevBtn = document.querySelector(".main-prev-btn");
+  const mainNextBtn = document.querySelector(".main-next-btn");
+  const mainSlides = document.querySelectorAll(".main-slide");
 
-  thumbnails.forEach((thumb, index) => {
-    thumb.addEventListener('click', () => {
-      thumbnails.forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
-      if (mainImage) {
-        mainImage.src = (thumb as HTMLImageElement).src;
-      }
+  // Thumbnail slider elements
+  const thumbTrack = document.querySelector(".thumbnail-track") as HTMLElement;
+  const thumbPrevBtn = document.querySelector(".thumb-prev-btn");
+  const thumbNextBtn = document.querySelector(".thumb-next-btn");
+  const thumbnails = document.querySelectorAll(".thumbnail");
+
+  const totalImages = mainSlides.length;
+  const thumbsPerView = 4;
+  let currentIndex = 0;
+  let currentThumbPage = 0;
+  const totalThumbPages = Math.ceil(totalImages / thumbsPerView);
+
+  // Go to specific main image
+  function goToMainSlide(index: number) {
+    if (index < 0) index = totalImages - 1;
+    if (index >= totalImages) index = 0;
+
+    currentIndex = index;
+    mainTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Update active thumbnail
+    thumbnails.forEach((thumb, i) => {
+      thumb.classList.toggle("active", i === currentIndex);
     });
 
-    if (index === 0) {
-      thumb.classList.add('active');
+    // Auto scroll thumbnail slider to show active thumbnail
+    const newThumbPage = Math.floor(currentIndex / thumbsPerView);
+    if (newThumbPage !== currentThumbPage) {
+      goToThumbPage(newThumbPage);
     }
+  }
+
+  // Thumbnail slider pagination
+  function goToThumbPage(page: number) {
+    if (page < 0) page = 0;
+    if (page >= totalThumbPages) page = totalThumbPages - 1;
+
+    currentThumbPage = page;
+    const thumbWidth = 25; // 25% per thumbnail
+    const gapOffset = currentThumbPage * thumbsPerView * 10; // gap: 10px
+    const offset = currentThumbPage * thumbsPerView * thumbWidth;
+    thumbTrack.style.transform = `translateX(calc(-${offset}% - ${gapOffset}px))`;
+  }
+
+  // Main slider navigation
+  mainPrevBtn?.addEventListener("click", () => goToMainSlide(currentIndex - 1));
+  mainNextBtn?.addEventListener("click", () => goToMainSlide(currentIndex + 1));
+
+  // Thumbnail slider navigation
+  thumbPrevBtn?.addEventListener("click", () => goToThumbPage(currentThumbPage - 1));
+  thumbNextBtn?.addEventListener("click", () => goToThumbPage(currentThumbPage + 1));
+
+  // Click thumbnail to select main image
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener("click", () => goToMainSlide(index));
+  });
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") goToMainSlide(currentIndex - 1);
+    if (e.key === "ArrowRight") goToMainSlide(currentIndex + 1);
+  });
+
+  // Buy button confirmation
+  const buyBtns = document.querySelectorAll(".buy-btn");
+  buyBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const confirmed = confirm("🎁 Wow! You're rich! 💰\n\nBefore you go shopping, how about gifting me a ⭐ on GitHub?\n\nIt's FREE and makes my day! 🥺");
+      if (confirmed) {
+        window.open("https://github.com/cong85010/landing-page-pc", "_blank");
+      }
+    });
   });
 </script>
-</Layout>

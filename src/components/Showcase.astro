@@ -1,54 +1,54 @@
 ---
 // PC Showcase Gallery Component
-const showcases = [
+export const showcases = [
   {
-    id: 'red-dragon',
+    id: "red-dragon",
     title: "The Red Dragon",
     specs: "RTX 4090 • i9-14900K • 64GB DDR5",
     description: "Custom red theme với full RGB sync",
     image: "/showcase/pc1.png",
-    category: "Gaming"
+    category: "Gaming",
   },
   {
-    id: 'arctic-storm',
+    id: "arctic-storm",
     title: "Arctic Storm",
     specs: "RTX 4080 • i7-14700K • 32GB DDR5",
     description: "White build với custom water cooling",
     image: "/showcase/pc2.png",
-    category: "Gaming"
+    category: "Gaming",
   },
   {
-    id: 'shadow-reaper',
+    id: "shadow-reaper",
     title: "Shadow Reaper",
     specs: "RTX 4090 • AMD 7950X • 128GB DDR5",
     description: "Stealth black theme cho content creator",
     image: "/showcase/pc3.png",
-    category: "Workstation"
+    category: "Workstation",
   },
   {
-    id: 'gold-edition',
+    id: "gold-edition",
     title: "Gold Edition",
     specs: "RTX 4070 Ti • i7-13700K • 32GB DDR5",
     description: "Premium gold accents luxury build",
     image: "/showcase/pc4.png",
-    category: "Gaming"
+    category: "Gaming",
   },
   {
-    id: 'neon-genesis',
+    id: "neon-genesis",
     title: "Neon Genesis",
     specs: "RTX 4080 • AMD 7900X • 64GB DDR5",
     description: "Cyberpunk inspired RGB masterpiece",
     image: "/showcase/pc5.png",
-    category: "Gaming"
+    category: "Gaming",
   },
   {
-    id: 'pro-workstation',
+    id: "pro-workstation",
     title: "Pro Workstation",
     specs: "RTX 4090 • Threadripper • 256GB DDR5",
     description: "Enterprise level performance beast",
     image: "/showcase/pc6.png",
-    category: "Workstation"
-  }
+    category: "Workstation",
+  },
 ];
 ---
 
@@ -66,31 +66,49 @@ const showcases = [
     </div>
 
     <div class="showcase-grid">
-      {showcases.map((item) => (
-        <div class="showcase-card" data-category={item.category}>
-          <div class="showcase-image">
-            <img src={item.image} alt={item.title} loading="lazy" class="" />
-            <div class="showcase-overlay">
-              <div class="overlay-content">
-                <span class="showcase-category">{item.category}</span>
-                <h3 class="showcase-title">{item.title}</h3>
-                <p class="showcase-specs">{item.specs}</p>
+      {
+        showcases.map((item) => (
+          <div class="showcase-card" data-category={item.category}>
+            <div class="showcase-image">
+              <img src={item.image} alt={item.title} loading="lazy" class="" />
+              <div class="showcase-overlay">
+                <div class="overlay-content">
+                  <span class="showcase-category">{item.category}</span>
+                  <h3 class="showcase-title">{item.title}</h3>
+                  <p class="showcase-specs">{item.specs}</p>
+                </div>
+                <a href={`/product/${item.id}`} class="view-btn">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
+                      stroke="white"
+                      stroke-width="2"
+                    />
+                    <path
+                      d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5Z"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span>Xem Chi Tiết</span>
+                </a>
               </div>
-              <a href={`/product/${item.id}`} class="view-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="white" stroke-width="2"/>
-                  <path d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Xem Chi Tiết</span>
-              </a>
+            </div>
+            <div class="showcase-info">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
             </div>
           </div>
-          <div class="showcase-info">
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
@@ -98,7 +116,11 @@ const showcases = [
 <style>
   .showcase {
     padding: var(--section-padding) 5%;
-    background: linear-gradient(180deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.8));
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.9),
+      rgba(26, 26, 26, 0.8)
+    );
     position: relative;
   }
 
@@ -206,7 +228,11 @@ const showcases = [
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.9) 100%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(10, 10, 10, 0.9) 100%
+    );
     opacity: 0;
     transition: var(--transition);
     display: flex;
@@ -320,20 +346,20 @@ const showcases = [
   // Lazy load images with intersection observer
   const observerOptions = {
     threshold: 0.1,
-    rootMargin: '50px'
+    rootMargin: "50px",
   };
 
   const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const card = entry.target;
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
+        card.style.opacity = "0";
+        card.style.transform = "translateY(30px)";
 
         setTimeout(() => {
-          card.style.transition = 'all 0.6s ease';
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
+          card.style.transition = "all 0.6s ease";
+          card.style.opacity = "1";
+          card.style.transform = "translateY(0)";
         }, 100);
 
         imageObserver.unobserve(card);
@@ -341,7 +367,7 @@ const showcases = [
     });
   }, observerOptions);
 
-  document.querySelectorAll('.showcase-card').forEach((card, index) => {
+  document.querySelectorAll(".showcase-card").forEach((card, index) => {
     card.style.transitionDelay = `${index * 0.1}s`;
     imageObserver.observe(card);
   });
