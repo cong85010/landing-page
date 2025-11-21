@@ -12,7 +12,8 @@ const products = [
       { label: 'CPU', value: 'i7-14700K' },
       { label: 'RAM', value: '32GB DDR5' }
     ],
-    theme: 'warrior'
+    theme: 'warrior',
+    image: '/showcase/pc1.png'
   },
   {
     name: 'TITAN',
@@ -25,7 +26,8 @@ const products = [
       { label: 'CPU', value: 'i9-14900K' },
       { label: 'RAM', value: '64GB DDR5' }
     ],
-    theme: 'titan'
+    theme: 'titan',
+    image: '/showcase/pc3.png'
   },
   {
     name: 'CREATOR',
@@ -38,7 +40,8 @@ const products = [
       { label: 'CPU', value: 'AMD 7950X' },
       { label: 'RAM', value: '128GB DDR5' }
     ],
-    theme: 'creator'
+    theme: 'creator',
+    image: '/showcase/pc6.png'
   }
 ];
 ---
@@ -57,7 +60,7 @@ const products = [
           {product.badge}
         </div>
         <div class="card-visual">
-          <img src={`/${product.theme}.svg`} alt={product.name} class="product-image" />
+          <img src={product.image} alt={product.name} class="product-image"  />
           <div class="visual-glow"></div>
         </div>
         <div class="card-content">
@@ -74,10 +77,10 @@ const products = [
           <div class="card-price">
             <span class="price-amount">{product.price}</span>
           </div>
-          <button class="card-btn">
+          <a href={`/customizer?preset=${product.theme}`} class="card-btn">
             <span>CUSTOMIZER</span>
             <span class="btn-arrow">→</span>
-          </button>
+          </a>
         </div>
       </div>
     ))}

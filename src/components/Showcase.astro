@@ -6,7 +6,7 @@ const showcases = [
     title: "The Red Dragon",
     specs: "RTX 4090 • i9-14900K • 64GB DDR5",
     description: "Custom red theme với full RGB sync",
-    image: "/showcase/pc1.jpg",
+    image: "/showcase/pc1.png",
     category: "Gaming"
   },
   {
@@ -14,7 +14,7 @@ const showcases = [
     title: "Arctic Storm",
     specs: "RTX 4080 • i7-14700K • 32GB DDR5",
     description: "White build với custom water cooling",
-    image: "/showcase/pc2.jpg",
+    image: "/showcase/pc2.png",
     category: "Gaming"
   },
   {
@@ -22,7 +22,7 @@ const showcases = [
     title: "Shadow Reaper",
     specs: "RTX 4090 • AMD 7950X • 128GB DDR5",
     description: "Stealth black theme cho content creator",
-    image: "/showcase/pc3.jpg",
+    image: "/showcase/pc3.png",
     category: "Workstation"
   },
   {
@@ -30,7 +30,7 @@ const showcases = [
     title: "Gold Edition",
     specs: "RTX 4070 Ti • i7-13700K • 32GB DDR5",
     description: "Premium gold accents luxury build",
-    image: "/showcase/pc4.jpg",
+    image: "/showcase/pc4.png",
     category: "Gaming"
   },
   {
@@ -38,7 +38,7 @@ const showcases = [
     title: "Neon Genesis",
     specs: "RTX 4080 • AMD 7900X • 64GB DDR5",
     description: "Cyberpunk inspired RGB masterpiece",
-    image: "/showcase/pc5.jpg",
+    image: "/showcase/pc5.png",
     category: "Gaming"
   },
   {
@@ -46,7 +46,7 @@ const showcases = [
     title: "Pro Workstation",
     specs: "RTX 4090 • Threadripper • 256GB DDR5",
     description: "Enterprise level performance beast",
-    image: "/showcase/pc6.jpg",
+    image: "/showcase/pc6.png",
     category: "Workstation"
   }
 ];
@@ -69,7 +69,7 @@ const showcases = [
       {showcases.map((item) => (
         <div class="showcase-card" data-category={item.category}>
           <div class="showcase-image">
-            <img src={item.image} alt={item.title} loading="lazy" />
+            <img src={item.image} alt={item.title} loading="lazy" class="" />
             <div class="showcase-overlay">
               <div class="overlay-content">
                 <span class="showcase-category">{item.category}</span>
@@ -192,7 +192,7 @@ const showcases = [
   .showcase-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: var(--transition);
   }
 

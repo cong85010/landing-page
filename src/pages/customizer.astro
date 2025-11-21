@@ -1,0 +1,1575 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { componentCategories, presetConfigs, type PresetConfig } from '../data/components';
+
+// Get preset from URL params
+const url = new URL(Astro.request.url);
+const presetId = url.searchParams.get('preset') || 'warrior';
+const preset = presetConfigs.find(p => p.id === presetId) || presetConfigs[0];
+
+const pageTitle = 'PC Customizer - THÀNH CÔNG PC';
+const pageDescription = 'Thiết kế PC gaming hoàn hảo theo ý bạn với công cụ tùy chỉnh của chúng tôi';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="customizer-page">
+    <!-- Header -->
+    <div class="customizer-header">
+      <div class="header-container">
+        <a href="/#arsenal" class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Quay lại Arsenal</span>
+        </a>
+        <h1 class="page-title">
+          <span class="title-vn">TÙY CHỈNH</span>
+          <span class="title-en">Build Your Dream PC</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="customizer-container">
+      <!-- Left Panel - Component Selection -->
+      <div class="selection-panel">
+        <div class="preset-selector">
+          <h3>Preset Templates</h3>
+          <div class="preset-buttons">
+            {presetConfigs.map((p) => (
+              <button
+                class={`preset-btn ${p.id === preset.id ? 'active' : ''}`}
+                data-preset={p.id}
+              >
+                {p.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div class="categories-list" id="categoriesList">
+          {componentCategories.map((category, index) => (
+            <div class="category-section" data-category={category.id}>
+              <button class="category-header">
+                <div class="category-info">
+                  <span class="category-number">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h3 class="category-name">{category.nameVN}</h3>
+                    <p class="category-subtitle">{category.name}</p>
+                  </div>
+                </div>
+                <div class="category-toggle">
+                  {category.required && <span class="required-badge">BẮT BUỘC</span>}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="chevron">
+                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </button>
+
+              <div class="category-content">
+                <div class="components-grid">
+                  {category.options.map((component) => (
+                    <div
+                      class="component-card"
+                      data-component-id={component.id}
+                      data-category={category.id}
+                    >
+                      <div class="component-header">
+                        {component.brand && <span class="component-brand">{component.brand}</span>}
+                        {component.performance && (
+                          <div class="performance-bars">
+                            {Array.from({ length: 10 }).map((_, i) => (
+                              <div class={`bar ${i < component.performance! ? 'active' : ''}`}></div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <h4 class="component-name">{component.name}</h4>
+                      {component.description && (
+                        <p class="component-desc">{component.description}</p>
+                      )}
+                      <div class="component-footer">
+                        <span class="component-price">{component.price.toLocaleString('vi-VN')}₫</span>
+                        {component.power && (
+                          <span class="component-power">{component.power}W</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Panel - Configuration Summary -->
+      <div class="summary-panel">
+        <div class="summary-sticky">
+          <h2 class="summary-title">
+            <span>Cấu Hình Của Bạn</span>
+            <button class="reset-btn" id="resetBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.46667 21 7.20333 19.9167 5.61 18.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 17V12H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Reset
+            </button>
+          </h2>
+
+          <div class="config-preview">
+            <div class="preview-image">
+              <img src="/warrior.svg" alt="PC Preview" id="previewImage" />
+              <div class="preview-badge" id="previewBadge">{preset.name}</div>
+            </div>
+          </div>
+
+          <div class="selected-components" id="selectedComponents">
+            <!-- Will be populated by JavaScript -->
+          </div>
+
+          <div class="power-consumption">
+            <div class="power-header">
+              <span>Công Suất Tiêu Thụ</span>
+              <span id="totalPower">0W</span>
+            </div>
+            <div class="power-bar">
+              <div class="power-fill" id="powerFill" style="width: 0%"></div>
+            </div>
+            <p class="power-note">Khuyến nghị: <span id="recommendedPSU">650W</span></p>
+          </div>
+
+          <div class="price-summary">
+            <div class="price-breakdown" id="priceBreakdown">
+              <!-- Will be populated by JavaScript -->
+            </div>
+            <div class="total-price">
+              <span>Tổng Cộng</span>
+              <span class="price-amount" id="totalPrice">0₫</span>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="submit-btn" id="submitBtn">
+              <span>Gửi Yêu Cầu Báo Giá</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="share-btn" id="shareBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Chia Sẻ Cấu Hình
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Modal -->
+    <div class="modal" id="submitModal">
+      <div class="modal-overlay" id="modalOverlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <h2 class="modal-title">Gửi Yêu Cầu Báo Giá</h2>
+        <p class="modal-subtitle">Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ</p>
+
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="fullName">Họ và Tên *</label>
+            <input type="text" id="fullName" name="fullName" required placeholder="Nguyễn Văn A" />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="email@example.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Số Điện Thoại *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="0123456789" />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Yêu Cầu Đặc Biệt</label>
+            <textarea id="message" name="message" rows="4" placeholder="Ghi chú thêm về cấu hình..."></textarea>
+          </div>
+
+          <div class="config-summary-modal" id="configSummaryModal">
+            <!-- Configuration will be inserted here -->
+          </div>
+
+          <button type="submit" class="form-submit-btn">
+            <span>Gửi Yêu Cầu</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    import { componentCategories, presetConfigs, calculateTotalPrice, calculateTotalPower, getComponentById, formatPrice, type ConfigItem } from '../data/components';
+
+    // State management
+    let currentConfig: Record<string, ConfigItem | ConfigItem[]> = {};
+    let currentPreset = '{preset.id}';
+
+    // Initialize with preset
+    function loadPreset(presetId: string) {
+      const preset = presetConfigs.find(p => p.id === presetId);
+      if (!preset) return;
+
+      currentPreset = presetId;
+      currentConfig = { ...preset.components };
+
+      updateUI();
+      updateURL();
+    }
+
+    // Update all UI elements
+    function updateUI() {
+      updateSelectedComponents();
+      updatePriceBreakdown();
+      updatePowerConsumption();
+      updateComponentSelection();
+      updatePreviewImage();
+    }
+
+    // Update selected components list
+    function updateSelectedComponents() {
+      const container = document.getElementById('selectedComponents');
+      if (!container) return;
+
+      let html = '';
+      componentCategories.forEach(category => {
+        const selection = currentConfig[category.id];
+        if (!selection) return;
+
+        // Add category title
+        let categoryItems = '';
+
+        if (Array.isArray(selection)) {
+          selection.forEach((item: ConfigItem, index: number) => {
+            const comp = getComponentById(category.id, item.componentId);
+            if (comp) {
+              const itemPrice = comp.price * item.quantity;
+              categoryItems += `
+                <div class="spec-item-card">
+                  <div class="spec-card-header">
+                    <span class="spec-name">${comp.name}</span>
+                    <button class="remove-btn" data-category="${category.id}" data-index="${index}" title="Xóa">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="spec-card-footer">
+                    <div class="spec-qty-controls">
+                      <button class="qty-change-btn" data-category="${category.id}" data-index="${index}" data-action="decrease">-</button>
+                      <span class="qty-display">Qty: ${item.quantity}</span>
+                      <button class="qty-change-btn" data-category="${category.id}" data-index="${index}" data-action="increase">+</button>
+                    </div>
+                    <span class="spec-price">${formatPrice(itemPrice)}</span>
+                  </div>
+                </div>
+              `;
+            }
+          });
+        } else {
+          const comp = getComponentById(category.id, selection.componentId);
+          if (comp) {
+            const itemPrice = comp.price * selection.quantity;
+            categoryItems += `
+              <div class="spec-item-card">
+                <div class="spec-card-header">
+                  <span class="spec-name">${comp.name}</span>
+                  <button class="remove-btn" data-category="${category.id}" title="Xóa">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="spec-card-footer">
+                  <div class="spec-qty-controls">
+                    <button class="qty-change-btn" data-category="${category.id}" data-action="decrease">-</button>
+                    <span class="qty-display">Qty: ${selection.quantity}</span>
+                    <button class="qty-change-btn" data-category="${category.id}" data-action="increase">+</button>
+                  </div>
+                  <span class="spec-price">${formatPrice(itemPrice)}</span>
+                </div>
+              </div>
+            `;
+          }
+        }
+
+        if (categoryItems) {
+          html += `
+            <div class="spec-category">
+              <div class="spec-category-title">${category.nameVN.toUpperCase()}:</div>
+              ${categoryItems}
+            </div>
+          `;
+        }
+      });
+
+      container.innerHTML = html;
+
+      // Re-attach event listeners for the new buttons
+      attachQuantityChangeListeners();
+      attachRemoveListeners();
+    }
+
+    // Handle quantity changes in selected list
+    function attachQuantityChangeListeners() {
+      document.querySelectorAll('.qty-change-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const categoryId = target.dataset.category;
+          const action = target.dataset.action;
+          const indexStr = target.dataset.index;
+
+          if (!categoryId || !action) return;
+
+          const selection = currentConfig[categoryId];
+
+          if (Array.isArray(selection)) {
+            const index = parseInt(indexStr || '0');
+            const item = selection[index];
+            if (item) {
+              if (action === 'increase' && item.quantity < 99) {
+                item.quantity++;
+              } else if (action === 'decrease' && item.quantity > 1) {
+                item.quantity--;
+              }
+            }
+          } else if (selection) {
+            if (action === 'increase' && selection.quantity < 99) {
+              selection.quantity++;
+            } else if (action === 'decrease' && selection.quantity > 1) {
+              selection.quantity--;
+            }
+          }
+
+          updateUI();
+          updateURL();
+        });
+      });
+    }
+
+    // Handle remove buttons
+    function attachRemoveListeners() {
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLElement;
+          const categoryId = target.dataset.category;
+          const indexStr = target.dataset.index;
+
+          if (!categoryId) return;
+
+          const selection = currentConfig[categoryId];
+
+          if (Array.isArray(selection) && indexStr !== undefined) {
+            const index = parseInt(indexStr);
+            selection.splice(index, 1);
+            if (selection.length === 0) {
+              delete currentConfig[categoryId];
+            }
+          } else {
+            delete currentConfig[categoryId];
+          }
+
+          updateUI();
+          updateURL();
+        });
+      });
+    }
+
+    // Update price breakdown
+    function updatePriceBreakdown() {
+      const total = calculateTotalPrice(currentConfig);
+      const totalEl = document.getElementById('totalPrice');
+      if (totalEl) {
+        totalEl.textContent = formatPrice(total);
+      }
+    }
+
+    // Update power consumption
+    function updatePowerConsumption() {
+      const totalWatts = calculateTotalPower(currentConfig);
+      const powerEl = document.getElementById('totalPower');
+      const fillEl = document.getElementById('powerFill');
+      const recEl = document.getElementById('recommendedPSU');
+
+      if (powerEl) powerEl.textContent = totalWatts + 'W';
+
+      const recommendedWatts = Math.ceil(totalWatts * 1.3 / 100) * 100;
+      if (recEl) recEl.textContent = recommendedWatts + 'W';
+
+      if (fillEl) {
+        const percentage = Math.min((totalWatts / recommendedWatts) * 100, 100);
+        fillEl.style.width = percentage + '%';
+      }
+    }
+
+    // Update component selection UI
+    function updateComponentSelection() {
+      document.querySelectorAll('.component-card').forEach(card => {
+        const cardEl = card as HTMLElement;
+        const componentId = cardEl.dataset.componentId;
+        const categoryId = cardEl.dataset.category;
+
+        if (!componentId || !categoryId) return;
+
+        const selection = currentConfig[categoryId];
+        let isSelected = false;
+        let quantity = 1;
+
+        if (Array.isArray(selection)) {
+          const item = selection.find((i: ConfigItem) => i.componentId === componentId);
+          isSelected = !!item;
+          quantity = item?.quantity || 1;
+        } else if (selection) {
+          isSelected = selection.componentId === componentId;
+          quantity = selection.quantity;
+        }
+
+        if (isSelected) {
+          cardEl.classList.add('selected');
+
+          // Update quantity display for all components
+          const qtyControl = cardEl.querySelector('.quantity-control') as HTMLElement;
+          const qtyValue = cardEl.querySelector('.qty-value');
+          if (qtyControl) {
+            qtyControl.style.display = 'flex';
+            if (qtyValue) qtyValue.textContent = quantity.toString();
+          }
+        } else {
+          cardEl.classList.remove('selected');
+
+          // Hide quantity control
+          const qtyControl = cardEl.querySelector('.quantity-control') as HTMLElement;
+          if (qtyControl) {
+            qtyControl.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // Update preview image
+    function updatePreviewImage() {
+      const preset = presetConfigs.find(p => p.id === currentPreset);
+      const imgEl = document.getElementById('previewImage') as HTMLImageElement;
+      const badgeEl = document.getElementById('previewBadge');
+
+      if (imgEl && preset) {
+        imgEl.src = `/${preset.theme}.svg`;
+      }
+      if (badgeEl && preset) {
+        badgeEl.textContent = preset.name;
+      }
+    }
+
+    // Update URL with current config
+    function updateURL() {
+      const params = new URLSearchParams();
+      params.set('preset', currentPreset);
+
+      Object.entries(currentConfig).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          params.set(key, value.join(','));
+        } else {
+          params.set(key, value);
+        }
+      });
+
+      window.history.replaceState({}, '', `?${params.toString()}`);
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load initial preset
+      loadPreset(currentPreset);
+
+      // Preset buttons
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const presetId = (e.currentTarget as HTMLElement).dataset.preset;
+          if (presetId) {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            (e.currentTarget as HTMLElement).classList.add('active');
+            loadPreset(presetId);
+          }
+        });
+      });
+
+      // Category accordion
+      document.querySelectorAll('.category-header').forEach(header => {
+        header.addEventListener('click', () => {
+          const section = header.parentElement;
+          section?.classList.toggle('active');
+        });
+      });
+
+      // Component selection
+      document.querySelectorAll('.component-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          // Don't trigger if clicking quantity buttons
+          if ((e.target as HTMLElement).closest('.quantity-control')) return;
+
+          const cardEl = card as HTMLElement;
+          const componentId = cardEl.dataset.componentId;
+          const categoryId = cardEl.dataset.category;
+
+          if (!componentId || !categoryId) return;
+
+          const category = componentCategories.find(c => c.id === categoryId);
+          if (!category) return;
+
+          if (category.id === 'extras') {
+            // Multiple selection for extras with quantities
+            const current = (currentConfig[categoryId] as ConfigItem[]) || [];
+            const index = current.findIndex(i => i.componentId === componentId);
+
+            if (index > -1) {
+              current.splice(index, 1);
+              if (current.length === 0) {
+                delete currentConfig[categoryId];
+              }
+            } else {
+              current.push({ componentId, quantity: 1 });
+              currentConfig[categoryId] = current;
+            }
+          } else {
+            // Single selection with quantity for other categories
+            const current = currentConfig[categoryId] as ConfigItem;
+
+            if (current && current.componentId === componentId) {
+              // Deselect if clicking the same item
+              delete currentConfig[categoryId];
+            } else {
+              // Select new item with quantity 1
+              currentConfig[categoryId] = { componentId, quantity: 1 };
+            }
+          }
+
+          updateUI();
+          updateURL();
+        });
+      });
+
+      // Quantity controls on component cards
+      document.querySelectorAll('.quantity-control').forEach(qtyControl => {
+        const card = qtyControl.closest('.component-card') as HTMLElement;
+        const componentId = card?.dataset.componentId;
+        const categoryId = card?.dataset.category;
+
+        if (!componentId || !categoryId) return;
+
+        const minusBtn = qtyControl.querySelector('.qty-minus');
+        const plusBtn = qtyControl.querySelector('.qty-plus');
+
+        minusBtn?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const selection = currentConfig[categoryId];
+
+          if (Array.isArray(selection)) {
+            const item = selection.find(i => i.componentId === componentId);
+            if (item && item.quantity > 1) {
+              item.quantity--;
+              updateUI();
+              updateURL();
+            }
+          } else if (selection && selection.quantity > 1) {
+            selection.quantity--;
+            updateUI();
+            updateURL();
+          }
+        });
+
+        plusBtn?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const selection = currentConfig[categoryId];
+
+          if (Array.isArray(selection)) {
+            const item = selection.find(i => i.componentId === componentId);
+            if (item && item.quantity < 99) {
+              item.quantity++;
+              updateUI();
+              updateURL();
+            }
+          } else if (selection && selection.quantity < 99) {
+            selection.quantity++;
+            updateUI();
+            updateURL();
+          }
+        });
+      });
+
+      // Reset button
+      document.getElementById('resetBtn')?.addEventListener('click', () => {
+        loadPreset(currentPreset);
+      });
+
+      // Share button
+      document.getElementById('shareBtn')?.addEventListener('click', () => {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Đã copy link cấu hình vào clipboard!');
+        });
+      });
+
+      // Submit button
+      document.getElementById('submitBtn')?.addEventListener('click', () => {
+        const modal = document.getElementById('submitModal');
+        modal?.classList.add('active');
+
+        // Populate config summary in modal
+        const summaryEl = document.getElementById('configSummaryModal');
+        if (summaryEl) {
+          summaryEl.innerHTML = document.getElementById('selectedComponents')?.innerHTML || '';
+        }
+      });
+
+      // Modal close
+      document.getElementById('modalClose')?.addEventListener('click', () => {
+        document.getElementById('submitModal')?.classList.remove('active');
+      });
+
+      document.getElementById('modalOverlay')?.addEventListener('click', () => {
+        document.getElementById('submitModal')?.classList.remove('active');
+      });
+
+      // Form submission
+      document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target as HTMLFormElement);
+        const data = Object.fromEntries(formData);
+
+        // Add configuration to form data
+        data.configuration = JSON.stringify(currentConfig);
+        data.totalPrice = document.getElementById('totalPrice')?.textContent || '';
+
+        console.log('Form submitted:', data);
+
+        // Here you would send to your backend
+        alert('Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm nhất.');
+        document.getElementById('submitModal')?.classList.remove('active');
+      });
+    });
+  </script>
+
+  <style>
+    .customizer-page {
+      background: var(--black);
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    /* Header */
+    .customizer-header {
+      padding: 30px 5%;
+      border-bottom: 1px solid var(--steel);
+      background: linear-gradient(180deg, rgba(26, 26, 26, 0.8), transparent);
+    }
+
+    .header-container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--silver);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      transition: var(--transition);
+      margin-bottom: 20px;
+    }
+
+    .back-btn:hover {
+      color: var(--gold);
+      transform: translateX(-5px);
+    }
+
+    .page-title {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .title-vn {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 60px);
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .title-en {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--gold);
+      letter-spacing: 3px;
+    }
+
+    /* Main Container */
+    .customizer-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 40px 5%;
+      display: grid;
+      grid-template-columns: 1fr 450px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* Left Panel - Selection */
+    .selection-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .preset-selector h3 {
+      font-family: var(--font-title);
+      font-size: 18px;
+      color: var(--white);
+      margin-bottom: 15px;
+    }
+
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .preset-btn {
+      padding: 15px 20px;
+      background: rgba(42, 42, 42, 0.5);
+      border: 2px solid var(--steel);
+      color: var(--silver);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .preset-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .preset-btn.active {
+      background: rgba(200, 16, 46, 0.2);
+      border-color: var(--red-primary);
+      color: var(--red-primary);
+    }
+
+    /* Category Sections */
+    .category-section {
+      background: rgba(26, 26, 26, 0.6);
+      border: 1px solid var(--steel);
+      border-left: 3px solid var(--steel);
+      transition: var(--transition);
+    }
+
+    .category-section.active {
+      border-left-color: var(--red-primary);
+    }
+
+    .category-header {
+      width: 100%;
+      padding: 20px 25px;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      color: var(--white);
+    }
+
+    .category-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .category-number {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .category-name {
+      font-family: var(--font-title);
+      font-size: 20px;
+      color: var(--white);
+      margin: 0;
+    }
+
+    .category-subtitle {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--silver);
+      margin: 5px 0 0;
+      letter-spacing: 1px;
+    }
+
+    .category-toggle {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .required-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--red-primary);
+      padding: 4px 8px;
+      border: 1px solid var(--red-primary);
+      border-radius: 3px;
+      letter-spacing: 1px;
+    }
+
+    .chevron {
+      transition: transform 0.3s;
+      color: var(--silver);
+    }
+
+    .category-section.active .chevron {
+      transform: rotate(180deg);
+    }
+
+    .category-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .category-section.active .category-content {
+      max-height: 3000px;
+    }
+
+    .components-grid {
+      padding: 0 25px 25px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 15px;
+    }
+
+    /* Component Cards */
+    .component-card {
+      position: relative;
+      padding: 20px;
+      background: rgba(42, 42, 42, 0.5);
+      border: 2px solid var(--steel);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .component-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.1);
+    }
+
+    .component-card.selected {
+      background: rgba(200, 16, 46, 0.1);
+      border-color: var(--red-primary);
+      box-shadow: 0 0 20px rgba(200, 16, 46, 0.2);
+    }
+
+    .component-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .component-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .performance-bars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .performance-bars .bar {
+      width: 3px;
+      height: 12px;
+      background: var(--steel);
+      transition: var(--transition);
+    }
+
+    .performance-bars .bar.active {
+      background: var(--gold);
+    }
+
+    .component-name {
+      font-family: var(--font-title);
+      font-size: 16px;
+      color: var(--white);
+      margin: 0 0 8px;
+      line-height: 1.3;
+    }
+
+    .component-desc {
+      font-size: 13px;
+      color: var(--silver);
+      margin: 0 0 15px;
+      line-height: 1.5;
+    }
+
+    .component-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid var(--steel);
+    }
+
+    .component-price {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--red-primary);
+      font-weight: 600;
+    }
+
+    .component-power {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .selection-indicator {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 28px;
+      height: 28px;
+      background: var(--red-primary);
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .component-card.selected .selection-indicator {
+      display: flex;
+    }
+
+    /* Quantity Control */
+    .quantity-control {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(42, 42, 42, 0.5);
+      border: 1px solid var(--steel);
+      border-radius: 4px;
+    }
+
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      background: rgba(200, 16, 46, 0.2);
+      border: 1px solid var(--red-primary);
+      color: var(--red-primary);
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-btn:hover {
+      background: var(--red-primary);
+      color: var(--white);
+    }
+
+    .qty-value {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--white);
+      font-weight: 600;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    /* Right Panel - Summary */
+    .summary-panel {
+      position: relative;
+    }
+
+    .summary-sticky {
+      position: sticky;
+      top: 100px;
+      background: rgba(26, 26, 26, 0.95);
+      border: 2px solid var(--steel);
+      padding: 30px;
+      border-left: 4px solid var(--red-primary);
+    }
+
+    .summary-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-title);
+      font-size: 22px;
+      color: var(--white);
+      margin: 0 0 25px;
+    }
+
+    .reset-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 15px;
+      background: rgba(42, 42, 42, 0.5);
+      border: 1px solid var(--steel);
+      color: var(--silver);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .reset-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Preview */
+    .config-preview {
+      margin-bottom: 25px;
+    }
+
+    .preview-image {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background: rgba(42, 42, 42, 0.3);
+      border: 1px solid var(--steel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .preview-image img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(200, 16, 46, 0.3));
+    }
+
+    .preview-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 6px 12px;
+      background: var(--red-primary);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    /* Selected Components List */
+    .selected-components {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding-right: 10px;
+    }
+
+    .selected-components::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .selected-components::-webkit-scrollbar-track {
+      background: rgba(42, 42, 42, 0.5);
+    }
+
+    .selected-components::-webkit-scrollbar-thumb {
+      background: var(--steel);
+      border-radius: 3px;
+    }
+
+    /* Spec Categories */
+    .spec-category {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(76, 76, 76, 0.3);
+    }
+
+    .spec-category:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .spec-category-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* Selected Component Cards - Redesigned for consistency */
+    .spec-item-card {
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background: rgba(42, 42, 42, 0.4);
+      border: 1px solid var(--steel);
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .spec-item-card:hover {
+      background: rgba(42, 42, 42, 0.6);
+      border-color: var(--gold);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.1);
+    }
+
+    .spec-item-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .spec-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .spec-name {
+      font-size: 14px;
+      color: var(--white);
+      line-height: 1.4;
+      flex: 1;
+      padding-right: 10px;
+      font-weight: 500;
+    }
+
+    .remove-btn {
+      width: 26px;
+      height: 26px;
+      background: transparent;
+      border: 1px solid var(--steel);
+      color: var(--silver);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .remove-btn:hover {
+      background: rgba(200, 16, 46, 0.2);
+      border-color: var(--red-primary);
+      color: var(--red-primary);
+      transform: scale(1.1);
+    }
+
+    .spec-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .spec-qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(26, 26, 26, 0.6);
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid var(--steel);
+      flex-shrink: 0;
+    }
+
+    .qty-change-btn {
+      width: 20px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .qty-change-btn:hover {
+      color: var(--white);
+      transform: scale(1.2);
+    }
+
+    .qty-display {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--silver);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .spec-price {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--red-primary);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Power Consumption */
+    .power-consumption {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(42, 42, 42, 0.3);
+      border: 1px solid var(--steel);
+    }
+
+    .power-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .power-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(42, 42, 42, 0.8);
+      border: 1px solid var(--steel);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .power-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--red-primary));
+      transition: width 0.5s ease;
+    }
+
+    .power-note {
+      font-size: 12px;
+      color: var(--silver);
+      margin: 0;
+    }
+
+    .power-note span {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* Price Summary */
+    .price-summary {
+      margin-bottom: 25px;
+    }
+
+    .total-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(200, 16, 46, 0.1);
+      border: 2px solid var(--red-primary);
+      margin-top: 15px;
+    }
+
+    .total-price span:first-child {
+      font-family: var(--font-title);
+      font-size: 18px;
+      color: var(--white);
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--red-primary);
+      font-weight: 700;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px 25px;
+      background: var(--red-primary);
+      border: 2px solid var(--red-primary);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      background: transparent;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(200, 16, 46, 0.3);
+    }
+
+    .share-btn {
+      width: 100%;
+      padding: 15px 25px;
+      background: rgba(42, 42, 42, 0.5);
+      border: 2px solid var(--steel);
+      color: var(--silver);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .share-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--charcoal);
+      border: 2px solid var(--steel);
+      padding: 40px;
+      z-index: 1001;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(42, 42, 42, 0.5);
+      border: 1px solid var(--steel);
+      color: var(--silver);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      border-color: var(--red-primary);
+      color: var(--red-primary);
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--white);
+      margin: 0 0 10px;
+    }
+
+    .modal-subtitle {
+      font-size: 14px;
+      color: var(--silver);
+      margin: 0 0 30px;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--silver);
+      letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 15px;
+      background: rgba(42, 42, 42, 0.5);
+      border: 1px solid var(--steel);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .config-summary-modal {
+      padding: 20px;
+      background: rgba(42, 42, 42, 0.3);
+      border: 1px solid var(--steel);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 18px 25px;
+      background: var(--red-primary);
+      border: 2px solid var(--red-primary);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .form-submit-btn:hover {
+      background: transparent;
+      box-shadow: 0 8px 20px rgba(200, 16, 46, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .customizer-container {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-panel {
+        order: -1;
+      }
+
+      .summary-sticky {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .customizer-page {
+        padding-top: 60px;
+      }
+
+      .customizer-header {
+        padding: 20px 5%;
+      }
+
+      .title-vn {
+        font-size: 36px;
+      }
+
+      .preset-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .components-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        padding: 30px 20px;
+      }
+
+      .price-amount {
+        font-size: 24px;
+      }
+    }
+  </style>
+</Layout>

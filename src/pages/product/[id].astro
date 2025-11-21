@@ -119,7 +119,7 @@ const pageDescription = product.description.substring(0, 160);
               <div class="image-badge">{product.category}</div>
             </div>
             <div class="thumbnail-grid">
-              {product.images.map((img, index) => (
+              {product.images.map((img: string, index: number) => (
                 <img
                   src={img}
                   alt={`${product.name} ${index + 1}`}
@@ -173,7 +173,7 @@ const pageDescription = product.description.substring(0, 160);
             <div class="buy-section">
               <h3>Mua ngay tại:</h3>
               <div class="buy-links">
-                {product.buyLinks.map(link => (
+                {product.buyLinks.map((link) => (
                   <a href={link.url} class="buy-btn" target="_blank" rel="noopener">
                     <span class="buy-icon">{link.icon}</span>
                     <span>{link.platform}</span>

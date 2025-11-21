@@ -1,9 +1,0 @@
-<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="600" fill="#2A2A2A"/>
-  <rect x="250" y="100" width="300" height="400" fill="#1A1A1A" stroke="#0071C5" stroke-width="4"/>
-  <rect x="280" y="320" width="240" height="80" fill="#2A2A2A" stroke="#0071C5" stroke-width="3"/>
-  <text x="400" y="365" font-family="monospace" font-size="18" fill="#0071C5" text-anchor="middle" font-weight="bold">RTX 4090</text>
-  <rect x="300" y="200" width="200" height="80" fill="#2A2A2A" stroke="#00FF88" stroke-width="2"/>
-  <text x="400" y="245" font-family="monospace" font-size="16" fill="#00FF88" text-anchor="middle">THREADRIPPER</text>
-  <text x="400" y="550" font-family="Arial, sans-serif" font-size="28" fill="#0071C5" text-anchor="middle" font-weight="bold">PRO WORKSTATION</text>
-</svg>
